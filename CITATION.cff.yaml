@@ -74,7 +74,6 @@ references:
         description: "Zenodo record"
     license: CC-BY-4.0
     abstract: "Technical companion to the principal paper. Specifies the architecture at conformance depth and documents the reference implementation that conforms to it. Three primitive types compose under eight protocol mechanisms specified at conformance depth; three of the principal paper's twelve cases are exhibited at mechanism-coverage depth; six unsubstantiated commitments and three categories of architectural limit are named where the mechanism is specified rather than relegated to a separate section."
-  # TODO: After the reference implementation is deposited on Zenodo via GitHub release, add its concept DOI here.
   - type: software
     title: "The Sovereign Substrate: Reference Implementation"
     authors:
@@ -83,7 +82,19 @@ references:
         orcid: "https://orcid.org/0009-0009-8693-0148"
         affiliation: "Independent researcher"
     year: 2026
+    month: 5
     version: "v1.0"
     repository-code: "https://github.com/swheeler-research/substrate-reference"
+    doi: "10.5281/zenodo.20238427"
+    identifiers:
+      - type: doi
+        value: "10.5281/zenodo.20238427"
+        description: "Concept DOI (all versions)"
+      - type: doi
+        value: "10.5281/zenodo.20238428"
+        description: "Version DOI (v1.0)"
+      - type: url
+        value: "https://zenodo.org/records/20238428"
+        description: "Zenodo record"
     license: CC-BY-4.0
 
