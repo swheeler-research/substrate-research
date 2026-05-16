@@ -1,0 +1,89 @@
+cff-version: 1.2.0
+message: "If you use or refer to this research, please cite the principal paper as below. Additional papers in this repository are listed under references."
+type: software
+title: "The Sovereign Substrate: research papers"
+abstract: "Research papers on the Sovereign Substrate, an architecture for preserving authority through computational composition. This repository contains the principal architectural paper, its technical companion, and the build pipeline that produces both. The papers themselves are deposited as Zenodo records and have their own DOIs; this repository contains the manuscripts and the build infrastructure."
+authors:
+  - family-names: Wheeler
+    given-names: S.
+    orcid: "https://orcid.org/0009-0009-8693-0148"
+    affiliation: "Independent researcher"
+url: "https://github.com/swheeler-research/substrate-research"
+repository: "https://github.com/swheeler-research/substrate-research"
+license: CC-BY-4.0
+keywords:
+  - governed computation
+  - computational governance
+  - constitutional architecture
+  - authority preservation
+  - policy composition
+  - attributable execution
+  - refusal semantics
+  - content-addressable systems
+  - cooperative substrates
+  - AI governance
+preferred-citation:
+  type: generic
+  title: "The Sovereign Substrate: A constitutional architecture for governed computation"
+  authors:
+    - family-names: Wheeler
+      given-names: S.
+      orcid: "https://orcid.org/0009-0009-8693-0148"
+      affiliation: "Independent researcher"
+  year: 2026
+  month: 5
+  version: "v1.0"
+  publisher:
+    name: Zenodo
+  doi: "10.5281/zenodo.19960841"
+  identifiers:
+    - type: doi
+      value: "10.5281/zenodo.19960841"
+      description: "Concept DOI (all versions)"
+    - type: doi
+      value: "10.5281/zenodo.19960842"
+      description: "Version DOI (v1.0)"
+    - type: url
+      value: "https://zenodo.org/records/19960842"
+      description: "Zenodo record"
+  license: CC-BY-4.0
+  abstract: "This paper proposes an architecture for preserving authority through computational composition. Three primitive types (functional, state, and credential units) compose under eight protocol mechanisms that admit governance, refuse non-reconcilable composition, and witness every act on an append-only ledger. Twelve cases from public record are used to show how the architecture's machinery would have surfaced or constrained the failure in each. The technical primitives are not novel; the integration under the protocol's structural commitments is."
+references:
+  - type: generic
+    title: "The Sovereign Substrate: Reference Architecture and Implementation"
+    authors:
+      - family-names: Wheeler
+        given-names: S.
+        orcid: "https://orcid.org/0009-0009-8693-0148"
+        affiliation: "Independent researcher"
+    year: 2026
+    month: 5
+    version: "v1.0"
+    publisher:
+      name: Zenodo
+    doi: "10.5281/zenodo.20237900"
+    identifiers:
+      - type: doi
+        value: "10.5281/zenodo.20237900"
+        description: "Concept DOI (all versions)"
+      - type: doi
+        value: "10.5281/zenodo.20237901"
+        description: "Version DOI (v1.0)"
+      - type: url
+        value: "https://zenodo.org/records/20237901"
+        description: "Zenodo record"
+    license: CC-BY-4.0
+    abstract: "Technical companion to the principal paper. Specifies the architecture at conformance depth and documents the reference implementation that conforms to it. Three primitive types compose under eight protocol mechanisms specified at conformance depth; three of the principal paper's twelve cases are exhibited at mechanism-coverage depth; six unsubstantiated commitments and three categories of architectural limit are named where the mechanism is specified rather than relegated to a separate section."
+  # TODO: After the reference implementation is deposited on Zenodo via GitHub release, add its concept DOI here.
+  - type: software
+    title: "The Sovereign Substrate: Reference Implementation"
+    authors:
+      - family-names: Wheeler
+        given-names: S.
+        orcid: "https://orcid.org/0009-0009-8693-0148"
+        affiliation: "Independent researcher"
+    year: 2026
+    version: "v1.0"
+    repository-code: "https://github.com/swheeler-research/substrate-reference"
+    license: CC-BY-4.0
+
