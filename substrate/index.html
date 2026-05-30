@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Sovereign Substrate: A constitutional architecture for governed computation — S. Wheeler</title>
+
+<!-- Google Scholar / Highwire citation metadata -->
+<meta name="citation_title" content="The Sovereign Substrate: A constitutional architecture for governed computation">
+<meta name="citation_author" content="Wheeler, S.">
+<meta name="citation_publication_date" content="2026/05/15">
+<meta name="citation_online_date" content="2026/05/15">
+<meta name="citation_pdf_url" content="https://swheeler-research.github.io/substrate-research/sovereign_substrate_v1_0.pdf">
+<meta name="citation_doi" content="10.5281/zenodo.19960842">
+<meta name="citation_abstract_html_url" content="https://swheeler-research.github.io/substrate-research/substrate/">
+<meta name="citation_publisher" content="Zenodo">
+<meta name="citation_language" content="en">
+<meta name="citation_keywords" content="AI governance; governed computation; authority preservation; constitutional architecture; algorithmic accountability; capability-based security; supply-chain integrity; administrative state; cooperative substrate; constitutional source credentials; content-addressable storage; append-only ledger">
+
+<meta name="description" content="The architectural treatise on the Sovereign Substrate: three primitive types composing under eight protocol mechanisms to preserve authority through computational composition.">
+<meta name="author" content="S. Wheeler">
+<link rel="canonical" href="https://swheeler-research.github.io/substrate-research/substrate/">
+
+<style>
+  :root {
+    --ink: #1a1a17;
+    --ink-soft: #4a4843;
+    --paper: #f4f1ea;
+    --rule: #cfc8b8;
+    --accent: #6b4f2a;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    line-height: 1.65; font-size: 18px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 7vh 28px 14vh; }
+  .back {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 2.4rem;
+  }
+  .back:hover { text-decoration: underline; }
+  .kicker {
+    text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.72rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--accent); margin: 0 0 0.9rem;
+  }
+  h1 { font-size: 2rem; font-weight: 400; line-height: 1.22; margin: 0 0 0.5rem; letter-spacing: 0.005em; }
+  .subtitle { font-style: italic; color: var(--ink-soft); font-size: 1.15rem; margin: 0 0 1.4rem; }
+  .byline {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.92rem; color: var(--ink-soft); margin: 0 0 2.2rem;
+    padding-bottom: 2.2rem; border-bottom: 1px solid var(--rule);
+  }
+  .byline a { color: var(--accent); text-decoration: none; }
+  h2 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--accent); margin: 2.8rem 0 1rem;
+  }
+  .abstract p { margin: 0 0 1.1rem; }
+  .actions { margin: 2.6rem 0 0; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .actions a {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.9rem; text-decoration: none; padding: 0.7rem 1.3rem;
+    border: 1px solid var(--rule); border-radius: 2px; color: var(--ink);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .actions a:hover { border-color: var(--accent); color: var(--accent); }
+  .actions a.primary { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+  .actions a.primary:hover { background: #573f20; color: var(--paper); }
+  .cite {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.82rem; line-height: 1.7; background: rgba(0,0,0,0.035);
+    border-left: 2px solid var(--accent); padding: 1rem 1.2rem; margin: 1rem 0 0;
+    color: var(--ink-soft); overflow-wrap: break-word;
+  }
+  footer {
+    margin-top: 4rem; padding-top: 1.6rem; border-top: 1px solid var(--rule);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.82rem; color: var(--ink-soft); line-height: 1.8;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">&larr; S. Wheeler — Research</a>
+
+  <p class="kicker">Principal paper</p>
+  <h1>The Sovereign Substrate</h1>
+  <p class="subtitle">A constitutional architecture for governed computation</p>
+  <p class="byline">
+    S. Wheeler, independent researcher &nbsp;·&nbsp; v1.0 (2026) &nbsp;·&nbsp;
+    DOI <a href="https://doi.org/10.5281/zenodo.19960842">10.5281/zenodo.19960842</a> &nbsp;·&nbsp;
+    <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+  </p>
+
+  <h2>Abstract</h2>
+  <div class="abstract">
+    <p>This paper proposes an architecture for preserving authority through computational composition. Three primitive types (functional, state, and credential units) compose under eight protocol mechanisms that admit governance, refuse non-reconcilable composition, and witness every act on an append-only ledger. Authority chains terminate at constitutional source credentials anchored at natural persons. The same compositional vocabulary operates at every scale, from a single functional unit through institutional and sovereign substrates through cooperative arrangements between sovereigns.</p>
+    <p>The structural fault the architecture addresses predates the current AI moment. Institutions that run consequential computational systems are the only parties with operational access to them; counterparties, regulators, and individuals depend on the operating institution's cooperation for any visibility into what the system did. This arrangement was tolerable at institutional time-scales. It is not tolerable at machine speed.</p>
+    <p>Twelve cases from public record (including Horizon, Robodebt, Lavender, SolarWinds, the 737 MAX, LIBOR, and the London Whale) are used to show how the architecture's machinery would have surfaced or constrained the failure in each. A four-pattern adoption space across granularity, archive hosting, operator scope, and policy coverage admits incremental adoption by individual operators and by cooperative substrates between them.</p>
+    <p>The architecture's operational property is recoverability of authority through composition rather than prevention of compromise. Its boundedness is named through twelve irreducible failures. Its further contribution is structural preservation of the epistemic content of authority: every act records the calibration under which units asserted their outputs and the policy verdict on that calibration's adequacy. The technical primitives are not novel; the integration under the protocol's structural commitments is.</p>
+  </div>
+
+  <div class="actions">
+    <a class="primary" href="../sovereign_substrate_v1_0.pdf">Read the PDF</a>
+    <a href="https://doi.org/10.5281/zenodo.19960842">Zenodo record</a>
+    <a href="../reference-architecture/">Companion paper</a>
+    <a href="https://github.com/swheeler-research/substrate-reference">Reference implementation</a>
+  </div>
+
+  <h2>Cite as</h2>
+  <p class="cite">Wheeler, S. <em>The Sovereign Substrate: A constitutional architecture for governed computation</em>, v1.0 (2026). Zenodo. https://doi.org/10.5281/zenodo.19960842</p>
+
+  <footer>
+    Companion paper: <a href="../reference-architecture/">Reference Architecture and Implementation</a> &nbsp;·&nbsp; DOI <a href="https://doi.org/10.5281/zenodo.20237900">10.5281/zenodo.20237900</a><br>
+    ORCID: <a href="https://orcid.org/0009-0009-8693-0148">0009-0009-8693-0148</a> &nbsp;·&nbsp; <a href="mailto:swheeler-research@proton.me">swheeler-research@proton.me</a>
+  </footer>
+</div>
+</body>
+</html>

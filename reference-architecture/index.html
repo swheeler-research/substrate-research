@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Sovereign Substrate: Reference Architecture and Implementation — S. Wheeler</title>
+
+<!-- Google Scholar / Highwire citation metadata -->
+<meta name="citation_title" content="The Sovereign Substrate: Reference Architecture and Implementation">
+<meta name="citation_author" content="Wheeler, S.">
+<meta name="citation_publication_date" content="2026/05/16">
+<meta name="citation_online_date" content="2026/05/16">
+<meta name="citation_pdf_url" content="https://swheeler-research.github.io/substrate-research/sovereign_substrate_reference_architecture.pdf">
+<meta name="citation_doi" content="10.5281/zenodo.20237901">
+<meta name="citation_abstract_html_url" content="https://swheeler-research.github.io/substrate-research/reference-architecture/">
+<meta name="citation_publisher" content="Zenodo">
+<meta name="citation_language" content="en">
+<meta name="citation_keywords" content="governed computation; computational governance; policy composition; attributable execution; content-addressable systems; compositional architecture; refusal semantics; auditability; certificate transparency; cooperative substrates; AI governance; AI safety; reference architecture; conforming implementation; runtime policy evaluation; policy-as-code; compile-time governance; multi-custodian quorum; capability systems">
+
+<meta name="description" content="The technical companion to the Sovereign Substrate: the architecture specified at conformance depth, with a working reference implementation and twelve end-to-end demonstrations.">
+<meta name="author" content="S. Wheeler">
+<link rel="canonical" href="https://swheeler-research.github.io/substrate-research/reference-architecture/">
+
+<style>
+  :root {
+    --ink: #1a1a17;
+    --ink-soft: #4a4843;
+    --paper: #f4f1ea;
+    --rule: #cfc8b8;
+    --accent: #6b4f2a;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    line-height: 1.65; font-size: 18px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 7vh 28px 14vh; }
+  .back {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 2.4rem;
+  }
+  .back:hover { text-decoration: underline; }
+  .kicker {
+    text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.72rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--accent); margin: 0 0 0.9rem;
+  }
+  h1 { font-size: 2rem; font-weight: 400; line-height: 1.22; margin: 0 0 0.5rem; letter-spacing: 0.005em; }
+  .subtitle { font-style: italic; color: var(--ink-soft); font-size: 1.15rem; margin: 0 0 1.4rem; }
+  .byline {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.92rem; color: var(--ink-soft); margin: 0 0 2.2rem;
+    padding-bottom: 2.2rem; border-bottom: 1px solid var(--rule);
+  }
+  .byline a { color: var(--accent); text-decoration: none; }
+  h2 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--accent); margin: 2.8rem 0 1rem;
+  }
+  .abstract p { margin: 0 0 1.1rem; }
+  .actions { margin: 2.6rem 0 0; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .actions a {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.9rem; text-decoration: none; padding: 0.7rem 1.3rem;
+    border: 1px solid var(--rule); border-radius: 2px; color: var(--ink);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .actions a:hover { border-color: var(--accent); color: var(--accent); }
+  .actions a.primary { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+  .actions a.primary:hover { background: #573f20; color: var(--paper); }
+  .cite {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.82rem; line-height: 1.7; background: rgba(0,0,0,0.035);
+    border-left: 2px solid var(--accent); padding: 1rem 1.2rem; margin: 1rem 0 0;
+    color: var(--ink-soft); overflow-wrap: break-word;
+  }
+  footer {
+    margin-top: 4rem; padding-top: 1.6rem; border-top: 1px solid var(--rule);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.82rem; color: var(--ink-soft); line-height: 1.8;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">&larr; S. Wheeler — Research</a>
+
+  <p class="kicker">Companion paper</p>
+  <h1>The Sovereign Substrate</h1>
+  <p class="subtitle">Reference Architecture and Implementation</p>
+  <p class="byline">
+    S. Wheeler, independent researcher &nbsp;·&nbsp; v1.0 (2026) &nbsp;·&nbsp;
+    DOI <a href="https://doi.org/10.5281/zenodo.20237901">10.5281/zenodo.20237901</a> &nbsp;·&nbsp;
+    <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+  </p>
+
+  <h2>Abstract</h2>
+  <div class="abstract">
+    <p>This document specifies the Sovereign Substrate architecture at conformance depth and documents the reference implementation that conforms to it. It is the technical companion to the principal paper <em>The Sovereign Substrate: A constitutional architecture for governed computation</em> (S. Wheeler, v1.0, 2026), which develops the structural problem and the constitutional argument.</p>
+    <p>The architecture admits three primitive types (functional, state, and credential units) composing under eight protocol mechanisms specified at the depth required to write a conforming implementation: compile-at-commit, roll-up under strictest-binding-wins, wilful inclusion, refusal under non-reconcilable composition, runtime evaluation against the compiled form, the uniform invalidation surface, administrative acts on the ledger, and federation of archives under multi-custodian quorum. The compositional vocabulary is uniform across scales: the same primitives describe governance at a single functional unit, an institutional substrate, and a cooperative substrate of sovereigns.</p>
+    <p>The reference implementation is a working artefact, not a thought experiment, and includes twelve end-to-end demonstrations against substantively different problems. The paper exhibits three at sufficient depth to show the mechanisms composing: Robodebt (runtime policy refusal), the Boeing 737 MAX MCAS failure (certification as a substrate pattern), and the 2012 JPMorgan Chase London Whale loss (the densest single composition of mechanisms).</p>
+    <p>Six architectural commitments are named as not yet substantiated by the prototype. Each mechanism's bounded claims are specified alongside the mechanism, with the architecture's limits (adversarial gaming, refusal cost, centralising effects under adoption) named where the mechanism is specified rather than relegated to a separate section. The architecture is what this document specifies; the protocol is what conforming implementations satisfy; the substrate is what an operator runs. The technical primitives are not novel; the architectural commitments at conformance depth, exercised against working code, are.</p>
+  </div>
+
+  <div class="actions">
+    <a class="primary" href="../sovereign_substrate_reference_architecture.pdf">Read the PDF</a>
+    <a href="https://doi.org/10.5281/zenodo.20237901">Zenodo record</a>
+    <a href="../substrate/">Principal paper</a>
+    <a href="https://github.com/swheeler-research/substrate-reference">Reference implementation</a>
+  </div>
+
+  <h2>Cite as</h2>
+  <p class="cite">Wheeler, S. <em>The Sovereign Substrate: Reference Architecture and Implementation</em>, v1.0 (2026). Zenodo. https://doi.org/10.5281/zenodo.20237901</p>
+
+  <footer>
+    Principal paper: <a href="../substrate/">A constitutional architecture for governed computation</a> &nbsp;·&nbsp; DOI <a href="https://doi.org/10.5281/zenodo.19960842">10.5281/zenodo.19960842</a><br>
+    ORCID: <a href="https://orcid.org/0009-0009-8693-0148">0009-0009-8693-0148</a> &nbsp;·&nbsp; <a href="mailto:swheeler-research@proton.me">swheeler-research@proton.me</a>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://swheeler-research.github.io/substrate-research/sitemap.xml
