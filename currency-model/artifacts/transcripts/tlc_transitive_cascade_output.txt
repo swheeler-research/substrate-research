@@ -1,0 +1,30 @@
+TLC2 Version 2.15 of Day Month 20?? (rev: d5b5a7f)
+Warning: Please run the Java VM which executes TLC with a throughput optimized garbage collector by passing the "-XX:+UseParallelGC" property.
+(Use the -nowarning option to disable this warning.)
+Running breadth-first search Model-Checking with fp 106 and seed 8270978255963991071 with 1 worker on 1 cores with 968MB heap and 64MB offheap memory [pid: 1141] (Linux 6.18.5 amd64, Ubuntu 21.0.10 x86_64, MSBDiskFPSet, DiskStateQueue).
+Parsing file /tmp/MCtrans.tla
+Parsing file /tmp/SixTransCheck.tla
+Parsing file /tmp/TLC.tla
+Parsing file /tmp/Naturals.tla
+Parsing file /tmp/Sequences.tla
+Parsing file /tmp/FiniteSets.tla
+Semantic processing of module Naturals
+Semantic processing of module SixTransCheck
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module TLC
+Semantic processing of module MCtrans
+Starting... (2026-05-31 14:41:58)
+Computing initial states...
+Finished computing initial states: 1 distinct state generated at 2026-05-31 14:41:58.
+Progress(8) at 2026-05-31 14:42:01: 249,043 states generated (249,043 s/min), 59,294 distinct states found (59,294 ds/min), 40,513 states left on queue.
+Progress(14) at 2026-05-31 14:43:01: 12,546,041 states generated (12,296,998 s/min), 1,475,038 distinct states found (1,415,744 ds/min), 235,158 states left on queue.
+Model checking completed. No error has been found.
+  Estimates of the probability that TLC did not check all reachable states
+  because two distinct states had the same fingerprint:
+  calculated (optimistic):  val = 1.3E-6
+  based on the actual fingerprints:  val = 6.2E-8
+15730893 states generated, 1688888 distinct states found, 0 states left on queue.
+The depth of the complete state graph search is 19.
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 14 and the 95th percentile is 4).
+Finished in 01min 19s at (2026-05-31 14:43:17)

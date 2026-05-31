@@ -98,3 +98,28 @@ references:
         description: "Zenodo record"
     license: CC-BY-4.0
 
+  - type: generic
+    title: "The Sovereign Substrate: A Machine-Checked Model of Constitutional Currency"
+    authors:
+      - family-names: Wheeler
+        given-names: S.
+        orcid: "https://orcid.org/0009-0009-8693-0148"
+        affiliation: "Independent researcher"
+    year: 2026
+    month: 5
+    version: "v1.0"
+    publisher:
+      name: Zenodo
+    doi: "10.5281/zenodo.20478803"
+    identifiers:
+      - type: doi
+        value: "10.5281/zenodo.20478803"
+        description: "Concept DOI (all versions)"
+      - type: doi
+        value: "10.5281/zenodo.20478804"
+        description: "Version DOI (v1.0)"
+      - type: url
+        value: "https://zenodo.org/records/20478804"
+        description: "Zenodo record"
+    license: CC-BY-4.0
+    abstract: "Formal companion to the principal paper. Answers two of the architecture's open formal questions about constitutional currency: the faithful formalisation of no act executes under stale governance as an invocation-event property, with the natural state-invariant encoding machine-refuted; and a certified bound under which affected compiled forms cease to authorise execution within bounded latency, uniform across all six invalidation triggers and proved through the genuine transitive closure of the credential-derivation graph. Checked with the TLA+ Proof System and TLC."

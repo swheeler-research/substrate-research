@@ -1,0 +1,38 @@
+TLC2 Version 2.15 of Day Month 20?? (rev: d5b5a7f)
+Running breadth-first search Model-Checking with fp 75 and seed -5198609045987238364 with 2 workers on 1 cores with 455MB heap and 64MB offheap memory [pid: 1110] (Linux 6.18.5 amd64, Ubuntu 21.0.10 x86_64, MSBDiskFPSet, DiskStateQueue).
+Parsing file /home/claude/MC.tla
+Parsing file /tmp/Naturals.tla
+Parsing file /tmp/FiniteSets.tla
+Parsing file /tmp/Sequences.tla
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module MC
+Starting... (2026-05-31 09:36:15)
+Computing initial states...
+Finished computing initial states: 1 distinct state generated at 2026-05-31 09:36:15.
+Error: Invariant Naive is violated.
+Error: The behavior up to this point is:
+State 1: <Initial predicate>
+/\ csrc = {}
+/\ now = 0
+/\ lastInvokeClean = TRUE
+/\ witness = (f0 :> "ok" @@ f1 :> "ok")
+/\ cstatus = (c0 :> "valid" @@ c1 :> "valid")
+/\ ustatus = (u0 :> "active")
+/\ invocable = (f0 :> TRUE @@ f1 :> TRUE)
+/\ deadline = (f0 :> NONE @@ f1 :> NONE)
+
+State 2: <RevokeCred line 30, col 5 to line 33, col 76 of module MC>
+/\ csrc = {}
+/\ now = 0
+/\ lastInvokeClean = TRUE
+/\ witness = (f0 :> "ok" @@ f1 :> "ok")
+/\ cstatus = (c0 :> "revoked" @@ c1 :> "valid")
+/\ ustatus = (u0 :> "active")
+/\ invocable = (f0 :> TRUE @@ f1 :> TRUE)
+/\ deadline = (f0 :> 2 @@ f1 :> 2)
+
+2 states generated, 2 distinct states found, 0 states left on queue.
+The depth of the complete state graph search is 2.
+Finished in 01s at (2026-05-31 09:36:15)
