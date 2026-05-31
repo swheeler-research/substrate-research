@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Sovereign Substrate: A Machine-Checked Model of Constitutional Currency — S. Wheeler</title>
+
+<!-- Google Scholar / Highwire citation metadata -->
+<meta name="citation_title" content="The Sovereign Substrate: A Machine-Checked Model of Constitutional Currency">
+<meta name="citation_author" content="Wheeler, S.">
+<meta name="citation_publication_date" content="2026/05/31">
+<meta name="citation_online_date" content="2026/05/31">
+<meta name="citation_pdf_url" content="https://swheeler-research.github.io/substrate-research/sovereign_substrate_currency_model.pdf">
+<meta name="citation_doi" content="10.5281/zenodo.20478804">
+<meta name="citation_abstract_html_url" content="https://swheeler-research.github.io/substrate-research/currency-model/">
+<meta name="citation_publisher" content="Zenodo">
+<meta name="citation_language" content="en">
+<meta name="citation_keywords" content="formal methods; TLA+; TLAPS; model checking; constitutional currency; uniform invalidation surface; bounded latency; governed computation; machine-checked proof; safety and liveness; transitive closure; governance freshness">
+
+<meta name="description" content="The formal companion to the Sovereign Substrate: a machine-checked model of constitutional currency, answering two of the architecture's open formal questions with TLA+ proofs and model checking.">
+<meta name="author" content="S. Wheeler">
+<link rel="canonical" href="https://swheeler-research.github.io/substrate-research/currency-model/">
+
+<style>
+  :root {
+    --ink: #1a1a17;
+    --ink-soft: #4a4843;
+    --paper: #f4f1ea;
+    --rule: #cfc8b8;
+    --accent: #6b4f2a;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    line-height: 1.65; font-size: 18px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 7vh 28px 14vh; }
+  .back {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 2.4rem;
+  }
+  .back:hover { text-decoration: underline; }
+  .kicker {
+    text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.72rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--accent); margin: 0 0 0.9rem;
+  }
+  h1 { font-size: 2rem; font-weight: 400; line-height: 1.22; margin: 0 0 0.5rem; letter-spacing: 0.005em; }
+  .subtitle { font-style: italic; color: var(--ink-soft); font-size: 1.15rem; margin: 0 0 1.4rem; }
+  .byline {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.92rem; color: var(--ink-soft); margin: 0 0 2.2rem;
+    padding-bottom: 2.2rem; border-bottom: 1px solid var(--rule);
+  }
+  .byline a { color: var(--accent); text-decoration: none; }
+  h2 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--accent); margin: 2.8rem 0 1rem;
+  }
+  .abstract p { margin: 0 0 1.1rem; }
+  .actions { margin: 2.6rem 0 0; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .actions a {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.9rem; text-decoration: none; padding: 0.7rem 1.3rem;
+    border: 1px solid var(--rule); border-radius: 2px; color: var(--ink);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .actions a:hover { border-color: var(--accent); color: var(--accent); }
+  .actions a.primary { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+  .actions a.primary:hover { background: #573f20; color: var(--paper); }
+  .cite {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.82rem; line-height: 1.7; background: rgba(0,0,0,0.035);
+    border-left: 2px solid var(--accent); padding: 1rem 1.2rem; margin: 1rem 0 0;
+    color: var(--ink-soft); overflow-wrap: break-word;
+  }
+  footer {
+    margin-top: 4rem; padding-top: 1.6rem; border-top: 1px solid var(--rule);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.82rem; color: var(--ink-soft); line-height: 1.8;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">&larr; S. Wheeler — Research</a>
+
+  <p class="kicker">Formal companion</p>
+  <h1>The Sovereign Substrate</h1>
+  <p class="subtitle">A Machine-Checked Model of Constitutional Currency</p>
+  <p class="byline">
+    S. Wheeler, independent researcher &nbsp;·&nbsp; v1.0 (2026) &nbsp;·&nbsp;
+    DOI <a href="https://doi.org/10.5281/zenodo.20478804">10.5281/zenodo.20478804</a> &nbsp;·&nbsp;
+    <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+  </p>
+
+  <h2>Abstract</h2>
+  <div class="abstract">
+    <p>The principal paper lists, among the formal specifications it identifies as open, two that concern constitutional currency: a specification of compile-at-commit semantics under which "no act executes under stale governance" can be proved, and a specification of the uniform invalidation surface under which "compiled forms cease to authorise execution within bounded latency after invalidation events" can be proved. This formal companion supplies both, for a model of the surface, and reports the results and their limits plainly.</p>
+    <p>Two things are established. First, the faithful formalisation of "no act executes under stale governance" is a property of invocation events, not a state invariant over which compiled forms are invocable. The natural state-invariant encoding is false, and a model checker produces the counterexample automatically: in the adoption interval between a governing change and the invalidation of a dependent form, the form is affected and still marked invocable. This is exactly the adoption latency the architecture admits in its own statement of the property.</p>
+    <p>Second, the bounded-latency claim holds as a single certified theorem: a compiled form affected by any of the six invalidation triggers becomes non-invocable no later than its deadline, fixed at the triggering event plus a bound Delta. The bound is certified by the TLA+ Proof System for arbitrary instance cardinality, over a model in which the constitutional-source update propagates through the genuine transitive closure of the credential-derivation graph, with that cascade independently model-checked to multi-level depth.</p>
+    <p>The paper corroborates the architecture's stated semantics while refuting a natural but incorrect state-based formalisation of those semantics. The mechanism the architecture describes, uniform per-act refusal of invalidated forms with an admitted and bounded adoption latency, is coherent and is what the model exhibits. These are results about a model; their attribution to the architecture rests on a stated and traceable rendering, with the modelling judgements and scope limits named.</p>
+  </div>
+
+  <div class="actions">
+    <a class="primary" href="../sovereign_substrate_currency_model.pdf">Read the PDF</a>
+    <a href="https://doi.org/10.5281/zenodo.20478804">Zenodo record</a>
+    <a href="artifacts/">Proof artifacts</a>
+    <a href="../substrate/">Principal paper</a>
+  </div>
+
+  <h2>Cite as</h2>
+  <p class="cite">Wheeler, S. <em>The Sovereign Substrate: A Machine-Checked Model of Constitutional Currency</em>, v1.0 (2026). Zenodo. https://doi.org/10.5281/zenodo.20478804</p>
+
+  <footer>
+    Principal paper: <a href="../substrate/">A constitutional architecture for governed computation</a> &nbsp;·&nbsp; DOI <a href="https://doi.org/10.5281/zenodo.19960842">10.5281/zenodo.19960842</a><br>
+    Companion paper: <a href="../reference-architecture/">Reference Architecture and Implementation</a> &nbsp;·&nbsp; DOI <a href="https://doi.org/10.5281/zenodo.20237901">10.5281/zenodo.20237901</a><br>
+    Proof artifacts: <a href="artifacts/">TLA+ models, TLAPS proofs, TLC checks</a><br>
+    ORCID: <a href="https://orcid.org/0009-0009-8693-0148">0009-0009-8693-0148</a> &nbsp;·&nbsp; <a href="mailto:swheeler-research@proton.me">swheeler-research@proton.me</a>
+  </footer>
+</div>
+</body>
+</html>

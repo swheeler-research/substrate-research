@@ -2,6 +2,7 @@
 
 [![Principal paper DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19960841.svg)](https://doi.org/10.5281/zenodo.19960841)
 [![Companion paper DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20237900.svg)](https://doi.org/10.5281/zenodo.20237900)
+[![Formal companion DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20478803.svg)](https://doi.org/10.5281/zenodo.20478803)
 [![Licence: CC BY 4.0](https://img.shields.io/badge/Licence-CC%20BY%204.0-blue.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 Research papers on the Sovereign Substrate: an architecture for preserving authority through computational composition.
@@ -28,6 +29,17 @@ The technical companion. Specifies the architecture at conformance depth and doc
 - Latest PDF in this repository: [sovereign_substrate_reference_architecture.pdf](sovereign_substrate_reference_architecture.pdf)
 - Markdown source: [sovereign_substrate_reference_architecture.md](sovereign_substrate_reference_architecture.md)
 
+### Formal companion
+
+*The Sovereign Substrate: A Machine-Checked Model of Constitutional Currency* (S. Wheeler).
+
+The formal companion. Answers two of the architecture's open formal questions about constitutional currency: the correct formalisation of "no act executes under stale governance" (an invocation-event property, with the natural state-invariant encoding machine-refuted), and a certified bound under which affected compiled forms cease to authorise execution within bounded latency, uniform across all six invalidation triggers and proved through the genuine transitive cascade. The model is checked with the TLA+ Proof System and TLC; the proof artifacts accompany the paper.
+
+- Zenodo: <https://doi.org/10.5281/zenodo.20478803>
+- Latest PDF in this repository: [sovereign_substrate_currency_model.pdf](sovereign_substrate_currency_model.pdf)
+- Markdown source: [sovereign_substrate_currency_model.md](sovereign_substrate_currency_model.md)
+- Proof artifacts: [currency-model/artifacts/](currency-model/artifacts/)
+
 ## Reference implementation
 
 The Python reference implementation lives in a separate repository, independently archived on Zenodo:
@@ -44,6 +56,10 @@ Principal paper:
 Companion paper:
 
 > Wheeler, S. *The Sovereign Substrate: Reference Architecture and Implementation*. Zenodo. <https://doi.org/10.5281/zenodo.20237900>
+
+Formal companion:
+
+> Wheeler, S. *The Sovereign Substrate: A Machine-Checked Model of Constitutional Currency*. Zenodo. <https://doi.org/10.5281/zenodo.20478803>
 
 BibTeX, RIS, CSL, and CFF exports are available on each Zenodo record's landing page. The repository's `CITATION.cff` carries citation metadata in machine-readable form.
 
