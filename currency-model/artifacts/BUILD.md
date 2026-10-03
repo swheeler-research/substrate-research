@@ -80,9 +80,12 @@ The TLC models are TLA+ specifications stripped of the proof apparatus (they
 `TLC` module). The relevant runs:
 
 - `MC.tla` / `MC.cfg`: the single-operator model. Confirms the safety invariant
-  and the invocation property over the complete reachable graph, and, run against
-  the naive state invariant, prints the counterexample. Transcripts
-  `tlc_invariants_output.txt` and `tlc_naive_refutation_output.txt`.
+  over the state space reachable within the clock bound the model constrains.
+  Transcript `tlc_invariants_output.txt`.
+- `MC.tla` / `MCnaive.cfg`: the same model and instance, checking the naive state
+  invariant `Naive` instead, which TLC violates and prints the counterexample for.
+  The configuration differs from `MC.cfg` only in the invariant it names.
+  Transcript `tlc_naive_refutation_output.txt`.
 - `SixTransCheck.tla` with `MCtrans.tla` / `MCtrans.cfg`: the transitive-cascade
   model with a two-level credential chain. Confirms the safety invariant over the
   complete reachable graph. Transcript `tlc_transitive_cascade_output.txt`.
