@@ -37,7 +37,7 @@ The architecture does not solve politics, does not prevent corruption, does not 
 
 What this document specifies: the three primitive types and their internal typings, the eight protocol mechanisms at the depth required to write a conforming implementation, the reference implementation's correspondence to the specification, and the bounds of the architecture's claims, named where each claim is specified rather than relegated to a separate section. What this document does not specify: a wire protocol. The substrate is at the architectural layer; wire-protocol specification is downstream work, conceivable as future IETF or W3C standards-track activity building on RFC 9162 for witnessing, RFC 5280 for credential structure, the W3C Verifiable Credentials data model for credential expression, and Sigstore specifications for transparency logs. The architecture is what this document specifies; the protocol is what conforming implementations satisfy at the level of mechanical commitments; the substrate is what an operator runs. These distinctions are preserved throughout.
 
-The cases this document exercises against are three of the principal paper's twelve, selected for mechanism coverage: Robodebt (the runtime-policy distinction), Boeing 737 MAX (certification as a substrate pattern), and London Whale (the densest single composition of mechanisms in the case set). The other nine cases are exercised in the reference implementation's `examples/` directory and developed at substantive depth in the principal paper. The selection reflects this document's job: to specify the architecture and show it running, not to argue for its consequence.
+The cases this document exercises against are three of the principal paper's twelve, selected for mechanism coverage: Robodebt (the runtime-policy distinction), Boeing 737 MAX (certification as a substrate pattern), and London Whale (the densest single composition of mechanisms in the case set). The other nine cases are exercised in the reference implementation's `examples/` directory and developed at substantive depth in the principal paper. On cross-references: every section number in this document refers to this document, and references to the principal paper name it. The two papers number their chapters independently, and each number from 3.1 to 3.8 names a different mechanism in each, because the principal paper's chapter 3 opens with the primitives and this document's opens directly with the mechanisms. A reader holding both should follow a section number only within the document that gives it. The selection reflects this document's job: to specify the architecture and show it running, not to argue for its consequence.
 
 ---
 
@@ -69,13 +69,13 @@ A credential unit is the primitive for the structures of recognition and permiss
 
 Three transfer disciplines are admitted. A bearer credential is transferable; its possession authorises its use, and revocation requires the operator to invalidate the credential's content identity. A delegated credential is bound to a specific principal under specific scope; its use requires the principal to present it under conditions the credential's content specifies. A capability credential is bound to a specific target unit or class of units; its use authorises action on the target and is otherwise inert.
 
-Policy units are credential units operating in governance role. They are not a fourth primitive. A policy unit's content declares the constraints it imposes; its references identify the units it binds and the authority under which it operates. The compilation pipeline collects policy units through the credential graph and composes them under the roll-up rule of §3.2.
+Policy units are functional units operating in governance role, brought into binding by a credential's policy references. They are not a fourth primitive. A policy unit's content declares the constraints it imposes; the credential that references it supplies the authority under which it operates. The compilation pipeline collects policy units through the credential graph and composes them under the roll-up rule of §3.2.
 
 ### 2.4 Compositional uniformity
 
 The vocabulary above is the entire primitive vocabulary the architecture admits. The same vocabulary describes a single functional unit on a personal substrate, an institutional substrate composing many units under cooperative-substrate witnessing, and a sovereign substrate operating at multi-national scale. There is no scale-specific primitive set, no separate vocabulary for institutional governance, no separate vocabulary for sovereign cooperation. An operator is whoever authors and runs a substrate; the three primitives compose the same way regardless of which operator runs them and at what scale.
 
-This compositional uniformity is the architecture's central structural claim. It is not asserted; it is exhibited under exercise in §5 below. The architecture earns the claim by showing that the same vocabulary describes welfare adjudication (Robodebt), aircraft certification (Boeing 737 MAX), and financial-risk modelling under regulatory audit (London Whale) without bending or specialising. Where the prototype implements the vocabulary directly, the demonstrations run; where the principal paper's six unimplemented commitments would otherwise apply, the demonstrations operate at the prototype's current engineering depth and the gaps are named in §4.
+This compositional uniformity is the architecture's central structural claim. It is not asserted; it is exhibited under exercise in §5 below. The architecture earns the claim by showing that the same vocabulary describes welfare adjudication (Robodebt), aircraft certification (Boeing 737 MAX), and financial-risk modelling under regulatory audit (London Whale) without bending or specialising. Where the prototype implements the vocabulary directly, the demonstrations run; where the principal paper's six unimplemented commitments would otherwise apply, the demonstrations operate at the prototype's current engineering depth and the gaps are named in §4 below.
 
 ---
 
@@ -141,7 +141,7 @@ It does not eliminate the operational cost of system evolution. A substrate whos
 
 The policy units in scope at a unit's compilation are composed into a single rolled-up policy expression. Where multiple policies address the same governance dimension, the strictest binding becomes the binding for that dimension. The architecture's commitment is that policies do not silently relax through composition: a unit composing under two policies on the same dimension binds under the stricter of the two, and a unit whose composition would weaken any policy in scope refuses.
 
-Strictness is structural. Where two policies' constraints are comparable (one is a strict subset of the other along the dimension), the subset is strictest. Where two policies' constraints are incomparable (neither is strictly stronger than the other), the composition is non-reconcilable: §3.4 applies.
+Strictness is structural. Where two policies' constraints are comparable (one is a strict subset of the other along the dimension), the subset is strictest. Where two policies' constraints are incomparable (neither is strictly stronger than the other), the composition is non-reconcilable: the refusal of §3.4 applies.
 
 The rolled-up policy expression is part of the compiled form. Runtime evaluation (§3.5) evaluates against the rolled-up policy, not against the constituent policies individually. The rolled-up form is deterministic in the inputs (the set of policies in scope, the strictness relations between them, the operator's authored content for policy ordering where strictness alone does not resolve the rollup); two conforming implementations compiling the same unit under the same authored content produce rolled-up policies of identical content identity.
 
@@ -163,7 +163,7 @@ The rule's purpose is structural visibility. An operator inspecting a unit's con
 
 It does not police the substantive content of the references. A unit whose declared references include units whose substantive content is wrong, malicious, or unwise compiles cleanly under wilful inclusion provided the references are declared. The substrate's mechanism is visibility, not substantive judgement.
 
-It does not detect omitted dependencies the substrate cannot see. If a unit's executable artefact dynamically loads or invokes a unit whose reference is not declared in the unit's content, the wilful-inclusion check passes (the declared reference set is internally consistent) but the runtime invocation refuses (§3.5) because the sub-invocation's compiled form is not present in the parent's wilfully-included set.
+It does not detect omitted dependencies the substrate cannot see. If a unit's executable artefact dynamically loads or invokes a unit whose reference is not declared in the unit's content, the wilful-inclusion check passes (the declared reference set is internally consistent) but the runtime invocation refuses at evaluation against the compiled form (§3.5) because the sub-invocation's compiled form is not present in the parent's wilfully-included set.
 
 ### 3.4 Refusal under non-reconcilable composition
 
@@ -215,15 +215,17 @@ It does not silently degrade. An act whose evaluation cannot complete (the compi
 
 ### 3.6 The uniform invalidation surface
 
-A unit's compiled form is invalidated by any of five triggers, each producing a ledger record and an administrative act through the same mechanism. The uniform surface gives the architecture defensive coherence: one pathway carries every invalidation, rather than each invalidation type requiring its own operational profile.
+A unit's compiled form is invalidated by any of six triggers, each producing a ledger record and an administrative act through the same mechanism. The uniform surface gives the architecture defensive coherence: one pathway carries every invalidation, rather than each invalidation type requiring its own operational profile.
 
-The five triggers are revocation, deprecation, supersession (of credentials or units), drift, and integrity failure.
+The six triggers are revocation, deprecation, supersession (of credentials or units), constitutional source credential update, drift, and integrity failure.
 
 Revocation invalidates a credential. The credential's content identity is recorded as revoked on the ledger through the operator's standard administrative interface; compiled forms whose authority chain includes the revoked credential are invalidated.
 
 Deprecation invalidates a unit or credential without supersession. The unit is recorded as deprecated; compiled forms referencing the unit are invalidated unless the operator's authored content explicitly admits composition against deprecated units. The latter case is the architectural commitment: deprecation does not retroactively refuse historical acts that ran against the unit while it was active; it prevents new compositions from depending on it.
 
 Supersession invalidates by replacement. A new credential or unit is admitted with a content identity that supersedes a prior identity; compiled forms referencing the prior identity are invalidated. Recompilation against the superseding identity is the recovery path; the recompilation cascade propagates through the dependency graph.
+
+Constitutional source credential update invalidates by propagation rather than by direct reference. A constitutional source credential is updated; every credential deriving its authority from that source, at any depth, is affected, and compiled forms whose authority chains include any affected credential are invalidated. This is the one trigger whose effect reaches a compiled form through the transitive closure of the credential-derivation graph rather than through membership of the form's own reference set, so an implementation that resolves authority chains only one level upward does not implement it. The formal companion certifies the bounded-latency property for a model in which this cascade is resolved through a roots relation over the credential-derivation graph.
 
 Drift invalidates a behaviour-characterised unit whose runtime observation falls outside its declared acceptance band. The drift mechanism observes an output field the unit's specification names; the mechanism maintains a rolling window of observations in runtime state; when the windowed mean leaves the declared interval the unit is marked drifted and subsequent invocations refuse until an authorised operator resets the drift state.
 
@@ -299,11 +301,11 @@ The reference implementation accompanies this paper at https://github.com/swheel
 
 ### 4.1 Module correspondence to the specification
 
-The implementation's modules realise the specification of §3 as follows.
+The implementation's modules realise the specification of §3 of this document as follows.
 
 `src/substrate/primitives.py` defines the three primitive role types and their internal typings (contract patterns for functional units, mutability disciplines for state units, transfer disciplines for credential units). §2 of this paper specifies what these roles are; the module specifies the type signatures conforming implementations may exchange.
 
-`src/substrate/contracts.py` provides the structural contract language for unit content: input and output specifications, preconditions, calibration claims, drift criteria, propagation functions. §2.1 specifies what these declarations carry; the module specifies their structural form.
+`src/substrate/contracts.py` provides the structural contract language for unit content: input and output specifications, preconditions, calibration claims, drift criteria, propagation functions. §2.1 of this document specifies what these declarations carry; the module specifies their structural form.
 
 `src/substrate/compile.py` is the compilation pipeline. The six stages of §3.1 run in the order specified: wilful inclusion check, authority chain resolution, policy collection, joint-satisfiability check on structured preconditions, calibration-handling validation, compiled-form emission and witnessing.
 
@@ -317,7 +319,7 @@ The implementation's modules realise the specification of §3 as follows.
 
 `src/substrate/drift.py` is the drift detection mechanism of §3.6. It observes the named output field on each invocation, maintains the rolling window in runtime memory, and marks the unit drifted when the windowed mean leaves the declared interval.
 
-`src/substrate/confidence.py` is calibration as first-class architectural property. It records the calibration claim and acceptance band in the unit's content (validated at compilation under §3.1.5), produces the calibration value at runtime, and applies the propagation function the unit's content declares.
+`src/substrate/confidence.py` is calibration as first-class architectural property. It records the calibration claim and acceptance band in the unit's content (validated at compilation under §3.1.5 of this document), produces the calibration value at runtime, and applies the propagation function the unit's content declares.
 
 `src/substrate/backtest.py` is the backtest pattern of §3.6. It provides reference implementations of four canonical calibration metrics that backtest units may declare in their content: coverage rates over prediction intervals, calibration-error metrics over probability outputs, exceedance rates over value-at-risk bounds, classification-accuracy metrics over labelled outcomes.
 
@@ -341,13 +343,13 @@ Persistent drift state surviving prototype restart. The drift mechanism maintain
 
 Calibration-handling contract as first-class field on the compiled form. The calibration claim and acceptance band live in the unit's content and are validated at compilation; the compiled form references this content. A production conforming implementation would emit the calibration-handling contract as a first-class field on the compiled form, machine-checkable without traversing back to the unit's content. The prototype validates at compilation but does not promote the contract to a compiled-form field.
 
-These gaps are named explicitly because the prototype is reference, not production. The demonstrations that exercise the prototype's existing engineering depth substantiate the architectural mechanisms specified in §3; the gaps are work for production conforming implementations to do.
+These gaps are named explicitly because the prototype is reference, not production. The demonstrations that exercise the prototype's existing engineering depth substantiate the architectural mechanisms specified in §3 of this document; the gaps are work for production conforming implementations to do.
 
 ### 4.3 Conformance and interoperability
 
 Conforming implementation is what makes the architecture's defensive properties hold operationally. An implementation can satisfy the architecture's mechanical requirements while still producing substrates that interoperate with other conforming substrates across operator boundaries. An implementation that fails the conformance requirements produces a substrate whose acts cannot be jointly witnessed in a cooperative substrate with conforming counterparties; the non-conforming substrate is isolated by the architecture's own admission discipline.
 
-The conformance commitments are precisely those specified in §3. At unit commit time, the six stages of §3.1 are required. At every act, the five-stage runtime evaluation of §3.5 is required. The uniform invalidation surface of §3.6 is honoured. The runtime's verdict is the verdict the compiled rolled-up policy produces; conforming implementations do not synthesise verdicts, do not evaluate against alternative policy structures, do not approximate the rolled-up policy's evaluation, and do not admit acts whose compiled form has been invalidated.
+The conformance commitments are precisely those specified in §3 of this document. At unit commit time, the six stages of §3.1 are required. At every act, the five-stage runtime evaluation of §3.5 is required. The uniform invalidation surface of §3.6 is honoured. The runtime's verdict is the verdict the compiled rolled-up policy produces; conforming implementations do not synthesise verdicts, do not evaluate against alternative policy structures, do not approximate the rolled-up policy's evaluation, and do not admit acts whose compiled form has been invalidated.
 
 Implementations have substantial latitude on how they satisfy these requirements. Execution technologies, optimisation strategies, federation topologies, performance and cost profiles, caching disciplines, batching arrangements where unit policies admit them, and parallelism choices are implementation decisions. The architecture cares about results, not means. What the architecture does not admit is implementations whose results differ from the canonical evaluation under the determinism precondition of §3.5: implementations whose policy languages are themselves deterministic, and that do not admit non-deterministic constructs, satisfy the conformance commitment that identical compiled forms produce identical verdicts on identical invocation contexts.
 
@@ -355,7 +357,7 @@ The runtime layer is structurally adjacent to existing production policy engines
 
 ### 4.4 What the prototype demonstrates about cost
 
-The prototype substantiates the architectural mechanisms of §3 against twelve worked cases. It does not substantiate the architecture's tractability at production scale. The distinction matters for the cost questions a serious conforming implementation must answer.
+The prototype substantiates the architectural mechanisms of §3 of this document against twelve worked cases. It does not substantiate the architecture's tractability at production scale. The distinction matters for the cost questions a serious conforming implementation must answer.
 
 What the prototype demonstrates. The six compilation stages of §3.1 complete in bounded time on each of the twelve demonstrations' unit graphs, which range from approximately ten units (Universal Credit single operator) to approximately thirty units (London Whale) per demonstration. Runtime evaluation per act completes in bounded time and produces deterministic verdicts under the prototype's policy language. The drift mechanism's rolling-window observation per act has constant cost in the window size. The backtest pattern's ledger walk has cost linear in the ledger length over the backtest's correlation window. The invalidation surface's cascade depth is bounded in the demonstrations by the depth of the dependency graph, which is small.
 
@@ -371,7 +373,7 @@ The honest framing for a production conforming implementer is that the prototype
 
 ## 5. The architecture under exercise
 
-This section exhibits the architecture running. Three cases are developed at sufficient depth to show the mechanisms of §3 composing against substantively different problems without bending: Robodebt (the runtime-policy distinction), Boeing 737 MAX (certification as a substrate pattern), and London Whale (the densest composition of mechanisms in the case set). The cases run in the reference implementation; the substantive content beyond what is needed to exercise the architecture lives in the principal paper and in the demonstrations' `README.md` files.
+This section exhibits the architecture running. Three cases are developed at sufficient depth to show the mechanisms of §3 of this document composing against substantively different problems without bending: Robodebt (the runtime-policy distinction), Boeing 737 MAX (certification as a substrate pattern), and London Whale (the densest composition of mechanisms in the case set). The cases run in the reference implementation; the substantive content beyond what is needed to exercise the architecture lives in the principal paper and in the demonstrations' `README.md` files.
 
 ### 5.1 Robodebt
 
@@ -455,7 +457,7 @@ What the case verifies. Calibrated reliability metadata is architectural: every 
 
 ## 6. What the architecture does not guarantee
 
-The architecture's defensibility depends on engagement with what it does not do. The limits below are not concessions; they are the architecture's structural commitments about its own scope. A serious architectural specification states its limits where its mechanisms are specified; this section concentrates the limits the §3 subsections each name at the point of mechanism specification, plus the limits that arise from the architecture's relation to existing work.
+The architecture's defensibility depends on engagement with what it does not do. The limits below are not concessions; they are the architecture's structural commitments about its own scope. A serious architectural specification states its limits where its mechanisms are specified; this section concentrates the limits the §3 subsections of this document each name at the point of mechanism specification, plus the limits that arise from the architecture's relation to existing work.
 
 The architecture does not solve politics. The substrate operationalises what constitutional process, institutional judgement, professional practice, and political deliberation produce; it does not produce them. An operator whose authored content embeds substantively unjust policies produces a substrate that runs those policies attributably; the substrate's contribution is that the choice and its consequences are structurally visible, not that the choice is good.
 
@@ -479,7 +481,7 @@ The architecture has centralising as well as plural effects under adoption. The 
 
 The architecture does not interoperate at the wire level until standards-track work is undertaken. The substrate composes established standards (RFC 9162 for witnessing, RFC 5280 for credential structure, W3C Verifiable Credentials for credential expression, Sigstore for transparency logs) but does not itself specify a wire protocol. Conforming implementations interoperate at the level of compiled forms, ledger acts, and cooperative-substrate witnessing; wire-protocol specification is downstream work for IETF or W3C standards bodies, with the architectural specification stabilised first.
 
-The reference implementation does not yet substantiate six of the architecture's commitments at production engineering depth (§4.2): extraction-maturity level as structured unit content; observability provenance as structured unit content; visibility class for policy content; twinning of constitutional source credentials with guardian-quorum revocation; persistent drift state surviving prototype restart; calibration-handling contract as first-class field on the compiled form. The architectural commitments are stable; what differs is engineering depth.
+The reference implementation does not yet substantiate six of the architecture's commitments at production engineering depth (§4.2 of this document): extraction-maturity level as structured unit content; observability provenance as structured unit content; visibility class for policy content; twinning of constitutional source credentials with guardian-quorum revocation; persistent drift state surviving prototype restart; calibration-handling contract as first-class field on the compiled form. The architectural commitments are stable; what differs is engineering depth.
 
 The architecture is not blockchain. Witnessed acts and cryptographic integrity guarantees are shared properties; the operational characteristics differ substantially. The substrate uses content-addressable storage with multi-operator quorum witnessing modelled on Certificate Transparency rather than the consensus mechanisms of distributed ledgers. The substrate's witnessing is multi-custodian and quorum-based; the substrate's archive substrates admit four hosting patterns of which federation is one; the substrate's compiled forms are content-addressed but not chained into a global sequence; the substrate's operational cost and latency are bounded by the witnessing infrastructure, not by a consensus protocol's tractability at scale. The architectural similarity is structural integrity; the architectural difference is what produces it.
 
