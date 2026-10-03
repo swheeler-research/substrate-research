@@ -35,7 +35,9 @@ System.
    dune build src/tlapm.exe
    ```
 
-4. Assemble the backend provers. Zenon and Z3 supply the non-temporal obligations;
+4. Assemble the backend provers. The SMT backend (Z3) supplies the non-temporal
+   obligations that `tlapm` does not close by its own reasoning; Zenon is built but
+   discharges none of the obligations in these modules;
    LS4 supplies the temporal (liveness) steps. Place them where `tlapm` looks for
    backends:
 
@@ -88,7 +90,8 @@ The TLC models are TLA+ specifications stripped of the proof apparatus (they
   Transcript `tlc_naive_refutation_output.txt`.
 - `SixTransCheck.tla` with `MCtrans.tla` / `MCtrans.cfg`: the transitive-cascade
   model with a two-level credential chain. Confirms the safety invariant over the
-  complete reachable graph. Transcript `tlc_transitive_cascade_output.txt`.
+  state space reachable under the configuration's `now <= 3` state constraint.
+  Transcript `tlc_transitive_cascade_output.txt`.
 - `MCtransNV.cfg`: the depth-two cascade non-vacuity witness. Transcript
   `tlc_transitive_cascade_depth2_output.txt`.
 

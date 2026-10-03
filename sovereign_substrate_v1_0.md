@@ -33,7 +33,7 @@ This was a tolerable arrangement at the institutional time-scales of the twentie
 
 ## 1.1 The cases
 
-Twelve cases, summarised below in eleven entries, because the two Universal Credit cases differ only in scale and share one summary. Eight are documented institutional failures; four are architectural demonstrations of substrate mechanisms that do not correspond to a single documented incident: the two Universal Credit cases, the Five Eyes composition, and constitutional anchoring. Each summary carries three kinds of statement. The factual material is drawn from published inquiry reports, court judgments, regulatory settlements, official statistics, and contemporaneous reporting. The characterisation of what that material shows, and the closing statement of structural fault, are the architecture's reading of the public record and not findings of any inquiry, court, or regulator.
+Twelve cases, summarised below in eleven entries, because the two Universal Credit cases differ only in scale and share one summary. Seven are documented institutional failures. Four are architectural demonstrations of substrate mechanisms that do not correspond to a single documented incident: the two Universal Credit cases, the Five Eyes composition, and constitutional anchoring. The twelfth, Lavender, rests on contested reporting and is taken at the level that reporting permits, with the Israel Defense Forces' response recorded alongside it. Each summary carries three kinds of statement. The factual material is drawn from published inquiry reports, court judgments, regulatory settlements, official statistics, and contemporaneous reporting. The characterisation of what that material shows, and the closing statement of structural fault, are the architecture's reading of the public record and not findings of any inquiry, court, or regulator.
 
 **The Universal Credit advance payment.** The UK Department for Work and Pensions adjudicates advance payments at scale. The decision involves identity verification, income verification, eligibility evaluation, fraud-risk scoring, and decision construction. The substrate's smallest interesting demonstration is this case at single-operator scale, then extended to cross-operator scale where the Home Office's nationality and right-to-work archives compose with DWP's eligibility machinery under a cooperative substrate. The case is not a documented failure. It is included because the substrate's machinery has to operate cleanly on the easy case before its handling of the harder cases can be trusted.
 
@@ -89,9 +89,9 @@ Constitutional source credentials are credential units whose provenance chain ha
 
 The constitutional source credential is the substrate's most consequential credential type. Its compromise, capture, or coerced revocation has consequences proportional to the authority it anchors. The substrate cannot defend against political capture of constitutional sources by adopting sovereigns themselves.
 
-### Policies are credential units
+### Policies are functional units brought into binding by credentials
 
-Policies are credential units operating in governance role. They are not a fourth primitive. A policy is a credential unit whose authority structure expresses a constraint over compositions, evaluated by the runtime through the same machinery that evaluates any other credential. The distinction between credentials that authorise execution and credentials that authorise governance is expressed structurally as two distinct reference roles in the credential graph: a credential that references a functional unit in the role of an admitted invocation target authorises invocation of that functional unit; a credential that references a functional unit in the role of a policy brings that functional unit into binding as a policy, evaluated at every act under refuse-wins semantics.
+Policies are functional units operating in governance role, brought into binding by a credential's policy references. They are not a fourth primitive. A policy is a functional unit whose content expresses a constraint over compositions, evaluated by the runtime through the same machinery that evaluates any other functional unit, with the credential that references it supplying the authority under which it binds. The distinction between credentials that authorise execution and credentials that authorise governance is expressed structurally as two distinct reference roles in the credential graph: a credential that references a functional unit in the role of an admitted invocation target authorises invocation of that functional unit; a credential that references a functional unit in the role of a policy brings that functional unit into binding as a policy, evaluated at every act under refuse-wins semantics.
 
 This means policies are functional units, evaluated by the standard runtime, refusing under refuse-wins composition. The policy is not a special clause inside the credential; it is a separate functional unit (which may be specification-bounded, behaviour-characterised, or hybrid like any other) brought into binding by the credential's reference structure. The substrate has no special policy machinery. The strictest binding wins because refusal wins; refusal wins because any policy that refuses under composition refuses the whole.
 
@@ -1792,7 +1792,7 @@ The substrate's response to compilation or runtime overload is structural refusa
 
 The behaviour is the wrong choice for cases where the absence of operation is itself a worse outcome than degraded operation: emergency response systems, life-critical control loops, defensive responses to active attacks at machine speed. The architecture supports graceful degradation through declared degraded modes that are themselves part of the unit's policies.
 
-A unit's policies may specify degraded modes under which the unit operates when full evaluation is not feasible. The degraded modes are themselves credential units in governance role, attached to the unit's compiled form during compilation. Each degraded mode declares the conditions under which it applies, the policies that hold even under degradation, and the post-degradation reconciliation process.
+A unit's policies may specify degraded modes under which the unit operates when full evaluation is not feasible. The degraded modes are themselves policy units in governance role, attached to the unit's compiled form during compilation. Each degraded mode declares the conditions under which it applies, the policies that hold even under degradation, and the post-degradation reconciliation process.
 
 **Pre-compiled degraded modes.** The architecture admits compiled forms with multiple operational profiles: a primary compiled form against the full policy stack, and one or more degraded compiled forms against reduced policy stacks. The unit's policies declare which profile applies under which conditions. Under normal operation the primary compiled form is invoked; under declared degraded conditions (planner overload, runtime resource exhaustion, network partition affecting credential status checks), a degraded compiled form is invoked instead. The degraded compiled form's lineage records its degraded character; acts under degraded operation are flagged in the ledger; the institutional process for post-degradation reconciliation is itself an operator commitment.
 
@@ -2340,7 +2340,7 @@ Each of these techniques produces outputs whose value depends on the outputs bei
 
 The substrate provides the architectural environment in which AI safety techniques become operationally consequential. AI safety produces two distinct kinds of output, and the substrate handles each.
 
-**Structural attestations** (the AI's calibration has been characterised against a particular distribution; the AI has been red-teamed for a particular adversarial pattern; the AI's training included constitutional AI commitments to particular principles; the AI's mechanistic interpretability characterisation has been performed and bounded) are credential units in governance role attached to the AI functional unit's contract. These are compiled into the unit's compiled form and govern every subsequent invocation.
+**Structural attestations** (the AI's calibration has been characterised against a particular distribution; the AI has been red-teamed for a particular adversarial pattern; the AI's training included constitutional AI commitments to particular principles; the AI's mechanistic interpretability characterisation has been performed and bounded) are policy units in governance role attached to the AI functional unit's contract. These are compiled into the unit's compiled form and govern every subsequent invocation.
 
 **Per-output findings** (this particular output's runtime mechanistic state suggests low confidence; this particular output exits an oversight mechanism's acceptance bands; this particular output triggers escalation under the debate protocol's adversarial test) are runtime credentials produced at the act, augmenting the act's runtime reliability assessment, evaluated against the compiled policy at the act.
 
@@ -2350,7 +2350,7 @@ Several specific patterns illustrate the operationalisation.
 
 **Mechanistic interpretability** operates at two temporal scopes. As a structural attestation, a technique that has characterised the AI unit's calibration over a particular distribution of inputs produces a credential attesting to the characterisation; the credential is attached to the AI unit's contract; the compilation pipeline rolls the credential into the unit's compiled form; the AI unit's policies require the structural characterisation to hold for the unit's invocations to be admitted. As a per-output finding, a technique applied at runtime to a particular act produces a runtime credential augmenting the act's reliability assessment. The act's compiled rolled-up policy evaluates the augmented assessment; insufficient runtime confidence produces refusal or escalation.
 
-**Scalable oversight** operates as a policy unit. An oversight mechanism that produces verdicts on AI outputs is itself a policy unit (a credential unit in governance role) whose verdicts evaluate against the AI's acts. The compilation pipeline incorporates the oversight policy into the AI unit's rolled-up policy; the runtime evaluates the oversight verdict at every act. The strictest binding wins under roll-up; an oversight verdict that refuses the act binds regardless of what the AI's other policies permit.
+**Scalable oversight** operates as a policy unit. An oversight mechanism that produces verdicts on AI outputs is itself a policy unit (a functional unit in governance role, brought into binding by a credential) whose verdicts evaluate against the AI's acts. The compilation pipeline incorporates the oversight policy into the AI unit's rolled-up policy; the runtime evaluates the oversight verdict at every act. The strictest binding wins under roll-up; an oversight verdict that refuses the act binds regardless of what the AI's other policies permit.
 
 **Debate protocol outputs** operate as confidence-constraint credentials. A debate protocol's finding that an AI claim cannot be defended against adversarial argument constrains the confidence the AI may declare on outputs depending on the claim. The constraint operates through a credential unit attached to the AI's contract: the AI's calibration commitments must reflect debate findings; drift detection includes drift away from debate-tested confidence levels.
 
@@ -2552,15 +2552,15 @@ The runtime's invocation pipeline (`Runtime.invoke` in `src/substrate/runtime.py
 
 The act is now part of JPMorgan's ledger and accessible to OCC under the cooperative substrate's audit credentials. The act's calibration is part of the act's content; OCC can query the lineage of calibration claims across the desk's positions.
 
-## A.5 Round 2: recalibration to the new VaR
+## A.5 Round 2: replacement by the new VaR
 
-JPMorgan's CIO recalibrates the VaR model. The new model has a halved risk factor; the content differs; the content-addressable identity differs.
+JPMorgan's CIO replaces the VaR model. The new model halves the reported risk on the same positions; the content differs; the content-addressable identity differs.
 
 In implementation terms, the new VaR model is a distinct `FunctionalUnit` with its own content. The implementation does not expose a single `commit_unit` operation; committing a unit is the sequence the demonstration performs for every unit: the unit is placed in the code archive, compiled through the pipeline of section A.3, and the resulting compiled form is registered on the operator's runtime. The `Operator` class (in `src/substrate/operator.py`) exposes administrative operations for the invalidation triggers it must support: `revoke_credential`, `deprecate_credential`, `supersede_credential`, `deprecate_unit`, and `reset_drift`. Committing a new unit is not one of these; it is not itself recorded as an administrative act on the ledger. What the ledger records is each invocation, and every invocation's act carries the content identity of the compiled form it ran against, which in turn names its source unit.
 
 The new VaR model does not silently replace the original, and the demonstration does not supersede the original with it: both models exist in the code archive as independent units with distinct content identities. Subsequent invocations of `authorise_position` against the new model produce acts that record the new model's identity; invocations against the original record the original's. The ledger therefore preserves which model produced which figure, because each act names its compiled form and each compiled form names its source unit.
 
-OCC, exercising its cooperative-substrate audit credentials, can retrieve both models from the code archive and distinguish them by content identity alone. The recalibration is structurally visible without any separate recalibration record: the existence of two distinct VaR units, and the ledger of which acts ran against which, is the evidence.
+OCC, exercising its cooperative-substrate audit credentials, can retrieve both models from the code archive and distinguish them by content identity alone. The replacement is structurally visible without any separate change record: the existence of two distinct VaR units, and the ledger of which acts ran against which, is the evidence.
 
 ## A.6 Round 3: drift accumulation on the new VaR
 
@@ -2618,8 +2618,8 @@ Acting under its cooperative-substrate audit credentials, OCC initiates a forens
 
 The OCC's audit runtime queries JPMorgan's ledger and code archive through the cooperative substrate's audit interface. The audit retrieves:
 
-1. The two VaR models with their distinct content-addressable identities. The recalibration is structurally visible from the model identities alone.
-2. The authority chain for each model. The CIO authored both. The recalibration's timing is recorded; the CIO's authority at the time of recalibration is recorded.
+1. The two VaR models with their distinct content-addressable identities. The replacement is structurally visible from the model identities alone.
+2. The authority chain for each model. The CIO authored both. The replacement's timing is recorded; the CIO's authority at the time of recalibration is recorded.
 3. The lineage of every act produced under each model. Each act records which model produced it, the position size, the calibration value the model declared, the rolled-up policy's verdict, the credentials in scope.
 4. The drift event on the new VaR model with its underlying observations. The audit can reconstruct the realised-versus-predicted volatility pattern that triggered drift.
 5. The escalation credential's issuance, scope, and exercise history. Every over-limit position authorised under escalation is recorded with the escalation credential's identity.
@@ -2714,7 +2714,7 @@ The contract is authored by the bank's chief risk officer under their credential
 
 ## B.3 The policies
 
-The bank's policies at adoption are derived from existing regulatory frameworks and the bank's own commitments. The policies are authored as credential units in governance role, each with its own content-addressable identity, each attached to the system's contract through policy references.
+The bank's policies at adoption are derived from existing regulatory frameworks and the bank's own commitments. The policies are authored as policy units in governance role, each with its own content-addressable identity, each attached to the system's contract through policy references.
 
 A representative subset:
 
