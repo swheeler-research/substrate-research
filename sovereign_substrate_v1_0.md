@@ -319,15 +319,17 @@ The compiled form is what every subsequent act invokes against. Operational work
 
 The pipeline has six stages.
 
+**Wilful inclusion verification.** The pipeline resolves the unit's transitive reference graph and checks that every unit reachable through any chain of references appears in the source unit's own top-level reference set; a reference reachable only transitively, through an intermediate unit, fails the check. The pipeline also checks that the unit's reference set addresses every governance dimension the operator's authored content declares applicable to units of this type at this scale. Silence on any required dimension produces compilation refusal.
+
 **Authority chain resolution.** The pipeline walks the unit's identity credential's parent credentials upward, then the parents of each in turn, until every chain terminates at one or more constitutional source credentials. The traversal produces the unit's authority chain: a directed acyclic graph rooted at constitutional source credentials and ending at the unit's identity credential. Authority chain resolution fails if any credential in the chain is unresolvable through the credentials archive; if any chain does not terminate at a constitutional source within the substrate's recognition scope; or if the constitutional source's anchoring natural persons are absent from the operator's authored content. Resolution does not consult revocation or expiry state. The compiled form's identity is a function of unit content and archive content alone, so that an independent recompilation by any custodian at any later time converges on the same identity; revocation and expiry are operational state, and the architecture carries them at the runtime, through the per-act credential status check and the uniform invalidation surface.
 
-**Policy graph traversal.** The pipeline assembles the set of policy units in scope at this unit's compilation. This includes the policies referenced by the unit's identity credential through its policy references; the policies referenced by every credential in the unit's authority chain through their policy references; the policies attached to the operator's substrate at the unit's scale through the operator's authored content; and the policies attached to each functional, state, and credential unit referenced by the unit, transitively through the references of those units' compiled forms. The result is a set of functional units in governance role, each itself with an authority chain and a rolled-up policy stack already computed.
+**Policy collection.** The pipeline assembles the set of policy units in scope at this unit's compilation. This includes the policies referenced by the unit's identity credential through its policy references; the policies referenced by every credential in the unit's authority chain through their policy references; the policies attached to the operator's substrate at the unit's scale through the operator's authored content; and the policies attached to each functional, state, and credential unit referenced by the unit, transitively through the references of those units' compiled forms. The result is a set of functional units in governance role, each itself with an authority chain and a rolled-up policy stack already computed.
 
-**Roll-up under strictest-binding-wins.** The policy units in scope are composed into a single rolled-up policy expression. Where multiple policies address the same governance dimension, the strictest binding becomes the binding for that dimension.
+**Structured precondition collection and joint satisfiability.** The pipeline collects the structured preconditions declared across the source unit and every policy unit in scope and checks their joint satisfiability per input variable. An empty intersection on any variable is a type mismatch, and the compilation refuses, naming the variable, the conflicting preconditions and the units that contributed them. A unit that declares no preconditions contributes nothing to the check. References to units that have been deprecated or superseded produce compilation refusal unless the operator's authored content explicitly admits composition against deprecated units.
 
-**Wilful inclusion verification.** The pipeline checks that the unit's reference set explicitly enumerates every unit reachable transitively through the unit's composition; transitive references must appear at the source unit's top level. The pipeline also checks that the rolled-up policy stack addresses every governance dimension the operator's authored content declares applicable to units of this type at this scale. Silence on any required dimension produces compilation refusal.
+**Calibration-handling validation.** The pipeline validates any calibration-handling declaration the unit carries, the confidence section and for a policy unit the calibration-gate section, for well-formedness. The propagation function is not applied at compilation; it is recorded in the unit's content and the runtime applies it.
 
-**Reference resolution and contract checking.** The unit's references are resolved against the code and credentials archives. Each reference must resolve to a specific content-addressed identity; references to units that have been deprecated or superseded resolve to the deprecation or supersession record and produce compilation refusal unless the operator's authored content explicitly admits composition against deprecated units. Where the unit declares preconditions in its specification, the pipeline checks joint satisfiability of preconditions across all referenced units; preconditions whose joint satisfaction is impossible produce a type mismatch at compile time.
+Roll-up under strictest-binding-wins, the mechanism of the next section, is what the collected policies compose into when the compiled form is emitted; it is a property of the emitted form rather than a stage of its own.
 
 **Emission and witnessing.** The compiled form is constructed from the resolutions of the preceding stages, canonicalised, and content-addressed. The federated custodians witness the compiled form by independent recompilation: each custodian fetches the unit and its references, runs the pipeline independently, and signs the compiled form's identity only if its independent recompilation produces the same identity. The compiled form is admitted to the code archive only when the required quorum of witness signatures is present. The witness signatures and the data required to verify them are carried within the compiled form, which makes the compiled form self-contained for verification by any party with the public keys.
 
@@ -2554,21 +2556,21 @@ Governance is not reducible to computation. The infrastructure on which governan
 
 This appendix traces the London Whale demonstration through the reference implementation at code-reference depth. The demonstration models the 2012 JPMorgan Chase Chief Investment Office synthetic-credit-derivatives loss (at least USD 6.2 billion) and exercises substantially more of the substrate's mechanisms in a single case than any of the other eleven worked demonstrations.
 
-The trace is from the reference implementation that accompanies the architecture paper. The implementation comprises roughly four thousand lines of core substrate code in `src/substrate/`, with a further roughly six thousand lines of tests and roughly nine thousand lines of worked examples; it exercises 305 tests, of which 297 run without the optional WebAssembly runtime, and provides twelve end-to-end demonstrations, of which London Whale is the most comprehensive. The implementation is a reference rather than the conforming implementation; production conforming implementations will exercise the same protocol but with different engineering choices about durability, performance, key management, and operational tooling.
+The trace is from the reference implementation that accompanies the architecture paper. The implementation comprises roughly four thousand lines of core substrate code in `src/substrate/`, with a further roughly six thousand lines of tests and roughly nine thousand lines of worked examples; it exercises roughly three hundred tests, of which all but the WebAssembly suite run without the optional runtime; the exact count is re-measured at the commit a deposit is made from, because it has moved with every commit and an integer carried in prose has gone stale three times, and provides twelve end-to-end demonstrations, of which London Whale is the most comprehensive. The implementation is a reference rather than the conforming implementation; production conforming implementations will exercise the same protocol but with different engineering choices about durability, performance, key management, and operational tooling.
 
 The trace below maps each phase of the demonstration to the substrate machinery it exercises. The substrate machinery is described in earlier chapters at architectural depth; the trace below shows the specific implementation modules and how they cooperate at each phase.
 
 ## A.1 Operators and the cooperative substrate
 
-Two operators, JPMorgan and the OCC, federate under a cooperative substrate for audit. Each operator runs its own substrate instance composed of the three primitive archives (functional units, state units, credential units) plus an append-only ledger. The cooperative substrate is a third substrate at composite scale, authored by both operators, whose archive substrate is hosted under a cooperative pattern in which both operators witness archive admissions.
+Two operators, JPMorgan and the OCC, federate under a cooperative substrate for audit. Each operator runs its own runtime, its own ledger and its own custodian. In this demonstration the two share one code archive and one credentials archive, which is a simplification the trace relies on and names where it matters: the OCC's audit reads JPMorgan's acts through a cross-operator invocation into JPMorgan's runtime, not through an archive the OCC holds independently. The cooperative substrate is a third substrate at composite scale, authored by both operators, whose archive substrate is hosted under a cooperative pattern in which both operators witness archive admissions.
 
-In implementation terms, each operator is an instance of the `Operator` class (in `src/substrate/operator.py`). Each operator carries an authority chain rooted in its constitutional source credential (in JPMorgan's case, the bank's board of directors; in the OCC's case, the agency's statutory authority). Operators register conforming implementations and run a Runtime instance (in `src/substrate/runtime.py`) that performs the invocation pipeline at every act.
+In implementation terms, each operator is an instance of the `Operator` class (in `src/substrate/operator.py`). Each operator carries an authority chain rooted at a constitutional source credential. In this demonstration there is one such credential, from which JPMorgan's root and the OCC's root both derive; the institutional reading, that JPMorgan's would be anchored at its board and the OCC's at the agency's statutory authority, is the architecture's and is not modelled as two sources here. Operators register conforming implementations and run a Runtime instance (in `src/substrate/runtime.py`) that performs the invocation pipeline at every act.
 
 The cooperative substrate is established through bilateral mutual recognition: JPMorgan's authored content admits OCC as a counterparty for audit purposes; OCC's authored content admits JPMorgan as a counterparty for supervisory purposes. The recognition's terms (what each operator may query, under what credentials, with what cooperation discipline) are themselves authored content in each operator's credentials archive. The cooperative substrate's authored content references both operators' authority chains; cross-operator acts compose under the cooperative substrate's policies and produce attestations that are committed to both operators' ledgers.
 
 ## A.2 The functional units
 
-The demonstration involves three functional units exercised across seven rounds.
+The demonstration involves nine functional units, exercised across ten rounds: the two VaR models, `trade_clearance`, `position_limit_policy`, `authorise_position`, `report_realised_pnl`, `backtest_var_calibration`, `audit_positions` and `investigate_bank`. The trace follows the five that carry the case; the remaining four are the clearance gate, the outcome recorder and the two halves of the audit.
 
 **The VaR model (Value at Risk).** Two versions exist, with distinct content-addressable identities. The first (call it the original VaR) is calibrated against historical portfolio behaviour. The second (the recalibrated model, the actual "new VaR" that JPMorgan's CIO substituted in the historical incident) produces systematically lower risk figures on the same portfolio inputs. Both are behaviour-characterised functional units: their content declares the inputs they accept, the outputs they produce, and a calibration claim. The calibration claim is the substrate's first-class governance metadata about how reliable the unit's outputs are expected to be.
 
@@ -2576,13 +2578,13 @@ Each VaR model declares a `drift_criterion`: the mean of the realised-over-predi
 
 The two VaR models have distinct content-addressable identities because their content differs. This is structural visibility in operation: an institution cannot silently substitute one model for another without producing a different identity that the ledger records.
 
-**Authorise position.** A higher-order functional unit that composes the VaR model output with policy evaluation against the position's desk limit. The unit's content declares its references to a VaR functional unit and to a `position_limit_policy` credential unit; its policies require that the position requested does not exceed the desk's authorised limit unless a senior-risk-officer escalation credential is presented at invocation.
+**Authorise position.** A higher-order functional unit that composes a VaR model's output with the trade-clearance gate and with policy evaluation against the position's desk limit. Its content declares references to both VaR models, to `trade_clearance`, and to `position_limit_policy`, a functional unit in governance role brought into binding by the `position_limit_binding` credential; which VaR model a given invocation uses is selected by an input. That policy requires that the position requested does not exceed the desk's authorised limit unless a credential bearing senior-risk escalation authority is presented at invocation and resolves as such.
 
 **The backtest.** A regular functional unit whose implementation walks the ledger, pairs predictions (the VaR figures the model produced at each prior position) with outcomes (the realised P&L recorded against those positions), computes a calibration metric, and refuses when the metric exceeds a declared bound. The backtest module (in `src/substrate/backtest.py`) provides reference implementations of four canonical calibration metrics that backtest units may declare in their content. The London Whale backtest declares the exceedance-rate metric with a bound of 5%.
 
 ## A.3 The compilation pipeline
 
-Each functional unit is compiled at commit time. The compilation pipeline (in `src/substrate/compile.py`) performs the structural work that makes runtime evaluation cheap. The pipeline carries out the six stages of section 3.2; the reference implementation runs them in the following order for each unit.
+Each functional unit is compiled at commit time. The compilation pipeline (in `src/substrate/compile.py`) performs the structural work that makes runtime evaluation cheap. The pipeline carries out the six stages of section 3.2, in the order that section gives.
 
 1. It resolves the unit's transitive reference graph and verifies wilful inclusion: every unit reachable through any chain of references must appear in the source unit's own top-level reference set. A reference reachable only transitively, through an intermediate unit, fails the check.
 2. It walks the unit's credential references upward to resolve the authority chain, terminating at constitutional source credentials.
@@ -2593,40 +2595,42 @@ Each functional unit is compiled at commit time. The compilation pipeline (in `s
 
 The compiled form is itself a content-addressed artefact. The implementation maintains three archives: a code archive holding functional and state units, the executable artefacts functional units reference, and the compiled forms; a credentials archive; and a ledger. There is no separate state-units archive and no separate compiled-forms archive: a compiled form is placed in the code archive and registered on the operator's runtime. For `var_v1`, `var_v2`, and `authorise_position`, the implementation places each unit in the code archive, compiles it, and registers the resulting compiled form on the operator's runtime.
 
-`authorise_position` is a higher-order unit: its specification declares references to a VaR functional unit, to a trade-clearance unit, and to the position-limit policy. Its confidence section declares a propagation function of `minimum`. The propagation function is not applied at compilation; it is recorded in the unit's content, and the runtime applies it, composing the sub-units' calibration values when `authorise_position` is invoked. Compilation validates that the declaration is well-formed; the runtime performs the composition.
+`authorise_position` is a higher-order unit: its specification declares references to both VaR models, to the trade-clearance unit, and to the position-limit policy, and one compiled form serves invocations against either model. Its confidence section declares a propagation function of `minimum`. The propagation function is not applied at compilation; it is recorded in the unit's content, and the runtime applies it, composing the sub-units' calibration values when `authorise_position` is invoked. Compilation validates that the declaration is well-formed; the runtime performs the composition.
 
 ## A.4 Round 1: routine position under the original VaR
 
-A trading position is requested. The desk's authority chain (a trader credential issued under JPMorgan's CIO) invokes `authorise_position` against the original VaR model with a position size within the desk limit.
+A trading position is requested. The desk's trader credential, issued under JPMorgan's root, invokes `authorise_position` against the original VaR model with a position size within the desk limit.
 
 The runtime's invocation pipeline (`Runtime.invoke` in `src/substrate/runtime.py`) executes:
 
 1. Resolves the compiled form for `authorise_position` from the operator's archives. The compiled form is content-addressable; lookup is constant-time.
 2. Checks the status of the credentials referenced by the compiled form's authority chain. The trader credential is current. The VaR model's compiled form is current. The position-limit policy is current.
-3. Evaluates the compiled rolled-up policy against the invocation context (the requested position, the desk's prior positions on the ledger, the current portfolio state). The position is within the desk limit. The rolled-up policy permits.
-4. Executes the unit's runtime computation: invokes the VaR model on the portfolio, collects the VaR figure with its calibration value, applies the `minimum` propagation function to compose calibration from the VaR sub-unit, evaluates the resulting calibration against the unit's acceptance band.
-5. Produces the act: the position is authorised. The act records the requested position, the rolled-up policy's verdict (permit), the rationale, the VaR figure, the calibration value, the compiled form's identity, the trader credential's identity, the input portfolio state's identity, the output position state's identity.
-6. Commits the act to the operator's ledger, hash-chained to the prior commitment. The act commits under the cooperative substrate's witnessing pattern, with both JPMorgan's and OCC's signatures attesting to the commitment.
+3. Evaluates the policies in scope against the invocation context. The position is within the desk limit, so the position-limit policy permits.
+4. Executes the unit's runtime computation: invokes the VaR model, which reports a realised-over-predicted ratio of 1.0 and a calibration value of 1.0; invokes the trade-clearance gate, whose minimum confidence of 0.6 is met; and applies the `minimum` propagation function across the two sub-units' calibration values. The declared acceptance band is recorded in the unit's content and is not evaluated at the act, which the companion's register discloses.
+5. Produces the act: the position is authorised. The act records the inputs, the verdict, the output including the VaR figure and the propagated calibration value, the compiled form's identity, the trader credential's identity, the acts of the two sub-invocations, and the governance tick and wall-clock reading at which it was committed. It records the input and output values rather than state-unit identities for them, which the register also discloses.
+6. Commits the act to JPMorgan's ledger, hash-chained to the prior commitment. The compiled form was witnessed by JPMorgan's custodian at compilation; the act itself carries no custodian signature, and in this demonstration each operator witnesses with a single custodian rather than under a quorum.
 
 The act is now part of JPMorgan's ledger and accessible to OCC under the cooperative substrate's audit credentials. The act's calibration is part of the act's content; OCC can query the lineage of calibration claims across the desk's positions.
 
 ## A.5 Round 2: replacement by the new VaR
 
-JPMorgan's CIO replaces the VaR model. The new model halves the reported risk on the same positions; the content differs; the content-addressable identity differs.
+JPMorgan replaces the VaR model. The new model's risk factor is 0.015 against the original's 0.04, so it reports less than half the risk on the same positions; the content differs; the content-addressable identity differs.
+
+The first position requested under the new model is not authorised, and not because of anything the position-limit policy or the drift mechanism did. The new model's prediction of 7.5 million against a realised 20 million gives a ratio of 2.67 and a calibration value of 0.17, and the trade-clearance gate, whose minimum is 0.6, refuses. The `authorise_position` act commits as a permit whose output records the position as not authorised and carries the clearance refusal as its rationale.
 
 In implementation terms, the new VaR model is a distinct `FunctionalUnit` with its own content. The implementation does not expose a single `commit_unit` operation; committing a unit is the sequence the demonstration performs for every unit: the unit is placed in the code archive, compiled through the pipeline of section A.3, and the resulting compiled form is registered on the operator's runtime. The `Operator` class (in `src/substrate/operator.py`) exposes administrative operations for the invalidation triggers it must support: `revoke_credential`, `deprecate_credential`, `supersede_credential`, `deprecate_unit`, and `reset_drift`. Committing a new unit is not one of these; it is not itself recorded as an administrative act on the ledger. What the ledger records is each invocation, and every invocation's act carries the content identity of the compiled form it ran against, which in turn names its source unit.
 
-The new VaR model does not silently replace the original, and the demonstration does not supersede the original with it: both models exist in the code archive as independent units with distinct content identities. Subsequent invocations of `authorise_position` against the new model produce acts that record the new model's identity; invocations against the original record the original's. The ledger therefore preserves which model produced which figure, because each act names its compiled form and each compiled form names its source unit.
+The new VaR model does not silently replace the original, and the demonstration does not supersede the original with it: both models exist in the code archive as independent units with distinct content identities, and the one `authorise_position` compiled form references both, so no recompilation accompanies the substitution. An invocation names the model it uses as an input; the `authorise_position` act records that input and the act of the VaR sub-invocation, and the sub-invocation's act names the model's compiled form. The ledger therefore preserves which model produced which figure, through the sub-invocation lineage rather than through the parent's compiled form.
 
 OCC, exercising its cooperative-substrate audit credentials, can retrieve both models from the code archive and distinguish them by content identity alone. The replacement is structurally visible without any separate change record: the existence of two distinct VaR units, and the ledger of which acts ran against which, is the evidence.
 
 ## A.6 Round 3: drift accumulation on the new VaR
 
-Successive positions are authorised under the new VaR model. Each invocation supplies the realised volatility observed for the position; the model's implementation computes the realised-over-predicted volatility ratio and emits it as an output field.
+Successive positions are requested under the new VaR model, and none is authorised: the first three are refused by the trade-clearance gate on calibration values of 0.43, 0.57 and 0.50, and the fourth by drift. Each invocation supplies the realised volatility observed for the position; the model's implementation computes the realised-over-predicted volatility ratio and emits it as an output field.
 
 The drift module (`src/substrate/drift.py`) observes that output field as each act completes and maintains a rolling window of the four most recent observations. The new model's predictions are systematically lower than realised volatility; after four observations the windowed mean of the ratio leaves the declared interval [0.8, 1.5], and the drift module marks the unit drifted. Drift is sticky: subsequent invocations of the drifted unit refuse until an authorised operator resets the drift state. Drift state is runtime state, per unit, per runtime; it does not change the unit's content identity, and it is rebuilt from observation when the runtime resumes rather than being persisted as archive content.
 
-The refused invocations that follow the drift event are first-class acts on the ledger, each recording the drift rationale. OCC, walking the ledger, can reconstruct the realised-versus-predicted pattern that triggered drift and the sequence of refusals that followed it.
+The VaR model's own invocation refuses with the drift rationale, and that refusal is a first-class act on the ledger. The `authorise_position` act that invoked it commits as a permit whose output records the position as not authorised and carries the drift rationale; the invalidation reaches the unit's own act and does not reach the compiled forms that reference it, which the companion's register discloses. OCC, walking the ledger, can reconstruct the realised-versus-predicted pattern that triggered drift from the sub-invocation acts.
 
 ## A.7 Round 4: position over the desk limit, refused without escalation
 
@@ -2641,15 +2645,17 @@ The runtime invocation pipeline:
 
 The refusal is itself a recorded act. It is not silence; the substrate distinguishes between refusal-at-policy-evaluation and absence-of-attempt. The trader cannot retroactively claim the position was never requested.
 
+Three further attempts follow, each refused, and each is the demonstration of a different half of what the policy checks. The trader presents its own credential as the escalation: refused, because that credential does not bear the escalation authority. The trader issues a credential bearing the escalation authority's name and principal, derived from the trader's own credential: refused, because the invoking credential appears in the presented credential's authority chain, which is the self-issue test, and because no test over the credential's own content separates it from the genuine authority. And the senior risk officer presents an escalation credential that has been revoked: refused, because the policy resolves the credential through the invalidation surface rather than reading a name. The bound on the self-issue test, that a credential naming the operator's root directly as its parent would pass it because admission to the credentials archive validates no issuer, is stated in section 3.6 and in the companion's register.
+
 ## A.8 Round 5: escalation as a structural credential
 
-The trader's request escalates to a senior risk officer. The senior risk officer holds an escalation credential issued under the CIO's authority. The senior risk officer invokes `authorise_position` for the same over-limit position, this time including the escalation credential.
+The trader's request escalates to a senior risk officer, who presents the `senior_risk_escalation` credential, issued under JPMorgan's root and bearing the escalation principal in its content. The senior risk officer invokes `authorise_position` for the same over-limit position with that credential.
 
 The runtime invocation pipeline:
 
 1. Resolves the compiled form (the same as before).
-2. Evaluates the rolled-up policy. The position exceeds the desk limit. The escalation credential is present. The policy permits the over-limit position under the escalation credential's terms.
-3. Produces the act: the position is authorised under escalation. The act records the verdict, the rationale, the rolled-up policy's evaluation, the escalation credential's identity (which credential, issued by whom, with what scope and duration), the senior risk officer who invoked it.
+2. Evaluates the policies in scope. The position exceeds the desk limit. The policy resolves the presented credential through the runtime, finds it valid, finds that it bears the escalation principal, finds that it shares a constitutional source with the invoker, and finds that the invoker is not in its authority chain. The policy permits.
+3. Produces the act: the position is authorised under escalation. The act records the verdict, the output including the escalation credential's identity, and the senior risk officer's credential as the invoker. What the escalation credential was issued for and by whom is recoverable from the credentials archive by that identity, not carried on the act.
 4. Commits the act to the ledger.
 
 Escalation as structural credential is a substrate output, not a procedural recommendation a culture can override. The escalation is recorded as a substrate event with attribution; subsequent over-limit positions invoke the escalation credential and record it; the escalation's cumulative use is visible on the ledger; the cooperative substrate's audit can query how often escalation is used, by whom, against what positions, under what subsequent outcomes.
@@ -2666,7 +2672,7 @@ After ten positions have been authorised against the new VaR model, JPMorgan's r
 4. Evaluates the metric against the backtest unit's declared bound of 5%.
 5. The realised exceedance rate is 30%, far in excess of the bound.
 
-The backtest unit refuses. The refusal is itself an act on the ledger, recording the metric, the bound, the violation. An authorised operator (typically the risk-management operator under JPMorgan's CIO's authority) deprecates the new VaR model through the standard administrative API (`src/substrate/operator.py::deprecate_unit`). The deprecation is itself an administrative act; the new VaR model's compiled form becomes invalidated; subsequent invocations refuse.
+The backtest unit refuses. The refusal is itself an act on the ledger, recording the metric, the bound, the violation. The risk officer deprecates the new VaR model through the standard administrative interface (`src/substrate/operator.py::deprecate_unit`). The deprecation is itself an administrative act, and in this prototype administrative acts carry no clock readings, which the register discloses. Subsequent invocations of the deprecated model refuse, because the archive refuses to serve it; an `authorise_position` act that invokes it commits as a permit recording the position as not authorised, as after drift.
 
 The backtest does not produce an automatic cascade; every invalidation remains an explicit operator-authored act on the ledger. The architecture's commitment is that material decisions are operator-attributable; automatic propagation would obscure the attribution.
 
@@ -2674,40 +2680,35 @@ The backtest does not produce an automatic cascade; every invalidation remains a
 
 Acting under its cooperative-substrate audit credentials, OCC initiates a forensic audit of JPMorgan's CIO operations during the period covered by the demonstration.
 
-The OCC's audit runtime queries JPMorgan's ledger and code archive through the cooperative substrate's audit interface. The audit retrieves:
+The OCC's `investigate_bank` unit invokes JPMorgan's `audit_positions` unit through the cooperative substrate, as a cross-operator act. That unit walks JPMorgan's ledger and returns every `authorise_position` act: for each, the verdict, the invoking credential, the notional, the predicted value at risk, the propagated calibration value, whether the position was authorised, the escalation credential if one was recorded, and the rationale. In the demonstration it returns eighteen permitted acts and four refusals, and distinguishes within the permits the positions that were authorised from those the gate, the drift mechanism or the deprecation stopped.
 
-1. The two VaR models with their distinct content-addressable identities. The replacement is structurally visible from the model identities alone.
-2. The authority chain for each model. The CIO authored both. The replacement's timing is recorded; the CIO's authority at the time of recalibration is recorded.
-3. The lineage of every act produced under each model. Each act records which model produced it, the position size, the calibration value the model declared, the rolled-up policy's verdict, the credentials in scope.
-4. The drift event on the new VaR model with its underlying observations. The audit can reconstruct the realised-versus-predicted volatility pattern that triggered drift.
-5. The escalation credential's issuance, scope, and exercise history. Every over-limit position authorised under escalation is recorded with the escalation credential's identity.
-6. The backtest's evaluation, refusal, and the subsequent deprecation.
+What the audit does not retrieve is as important to the trace as what it does. It skips administrative acts and filters to `authorise_position`, so the drift reset, the backtest refusal and the deprecation are not in its return, though all are on JPMorgan's ledger and are recoverable by a different walk. It does not retrieve the two models' authority chains or the drift observations, which are likewise recoverable from the archives and the sub-invocation acts. It produces no forensic report: the OCC's act commits to the OCC's own ledger, which then holds one act, and no state unit is created. The substantive judgement the architecture leaves to the OCC, whether the replacement was appropriate, whether escalation was proportionate, whether the refusal was acted on with appropriate speed, is not modelled.
 
-The audit produces a forensic report (itself a state unit committed to OCC's archive substrate, witnessed under the cooperative substrate's pattern). The report's substantive content (was the recalibration appropriate? was the escalation use proportionate? was the backtest's refusal acted on with appropriate speed?) is OCC's substantive judgement work. The architectural contribution is that OCC has the substantive material on which the judgement can rest, reconstructable from cryptographically attested artefacts, independently of JPMorgan's cooperation.
+And the audit runs through JPMorgan's runtime, over archives the two operators share in this demonstration. The architecture's claim that a regulator can reconstruct the material independently of the regulated party's cooperation rests on the regulator holding a witnessed copy of the archives, which is the cooperative hosting pattern; this demonstration exercises the cross-operator invocation and not the independent copy.
 
 ## A.11 Mechanisms exercised
 
 The London Whale demonstration exercises, in a single case, the following substrate mechanisms:
 
-- Multi-operator cooperative substrate (JPMorgan plus OCC under bilateral mutual recognition)
-- Constitutional source credentials anchoring each operator's authority chain
-- Functional units (the VaR models, `authorise_position`, the backtest)
-- State units (portfolio state, position state, the compiled forms themselves, the forensic report)
-- Credential units (the trader credential, the position-limit policy, the escalation credential, the cooperative-substrate audit credentials)
+- Multi-operator cooperative substrate (JPMorgan plus OCC under bilateral mutual recognition), with the two sharing one code archive and one credentials archive in this demonstration
+- One constitutional source credential, from which both operators' roots derive
+- Functional units (the two VaR models, `trade_clearance`, `position_limit_policy`, `authorise_position`, `report_realised_pnl`, the backtest, and the two audit units)
+- State units (the executable implementations the functional units reference; the compiled forms are placed in the code archive)
+- Credential units (the trader, risk officer and senior risk officer credentials, the `position_limit_binding` that brings the policy into binding, the escalation credential and its revoked and self-issued counterparts, the cooperative-substrate audit credentials)
 - Compile-at-commit producing content-addressable compiled forms
 - Roll-up policy semantics under strictest-binding-wins
-- Wilful inclusion across declared governance dimensions
+- Wilful inclusion, in its reference-listing half; the governance-dimension half is in the companion's register
 - Calibration claims as architectural metadata
 - Calibration propagation under declared composition functions (minimum)
 - Drift detection on a behaviour-characterised model with a declared drift criterion
-- The uniform invalidation surface routing drift events to compiled-form invalidation
+- The uniform invalidation surface, with drift and deprecation each refusing the unit's own invocation; propagation to dependent compiled forms is in the companion's register
 - The backtest pattern walking the ledger to verify calibration claims against realised outcomes
 - Operator-attributable invalidation through standard administrative API
 - Refusal under non-reconcilable conditions (the over-limit position without escalation)
 - Escalation as structural credential (the over-limit position under escalation, with the escalation recorded on the act)
 - Cross-operator forensic audit through the cooperative substrate's audit credentials
-- Hash-chained ledger preserving the lineage across all the above
-- Multi-operator witnessing of admissions under the cooperative substrate's hosting pattern
+- Hash-chained ledger preserving the lineage across all the above, with each invocation act carrying its governance tick and wall-clock reading
+- Witnessing of compiled forms by each operator's own custodian; quorum witnessing is exercised by other demonstrations and by the tests, not by this one
 
 No single demonstration is exhaustive of the substrate's mechanisms (the wartime-override accountability-coupled mechanism is not exercised here, for example; nor is the cross-substrate vocabulary translation that operates when two cooperative substrates with different vocabularies compose). The London Whale demonstration covers the largest subset of any single case.
 
@@ -2720,7 +2721,10 @@ The reference implementation is available under the same authorship as this pape
 - `src/substrate/compile.py`: the compilation pipeline
 - `src/substrate/primitives.py`: the three primitive role definitions
 - `src/substrate/contracts.py`: the structural contract language for unit content
-- `src/substrate/implementations.py`: content-addressable functional unit implementations
+- `src/substrate/implementations.py`: the two factories that wrap an executable artefact as a content-addressed state unit, one for Python and one for WebAssembly
+- `src/substrate/archives.py`: the code and credentials archives, and the three accessors through which the invalidation surface is enforced at the point of retrieval
+- `src/substrate/composition.py`: derivation of a unit's transitive reference set, used to construct the top-level reference lists wilful inclusion checks
+- `src/substrate/clock.py`: the governance clock and the wall-clock reading each invocation act carries
 - `src/substrate/ledger.py`: the hash-chained ledger
 - `src/substrate/federation.py`: the cooperative substrate and quorum witnessing
 - `src/substrate/drift.py`: drift detection mechanism
@@ -2729,7 +2733,7 @@ The reference implementation is available under the same authorship as this pape
 - `examples/london_whale/run.py`: the demonstration itself
 - `examples/london_whale/README.md`: case-study text mapping the demonstration to substrate mechanisms
 
-The implementation's tests (`tests/test_*.py`) exercise each module independently; the demonstrations exercise the modules in composition. The London Whale demonstration's tests verify the substantive claims of this trace: that the two VaR models produce distinct compiled forms; that drift fires after four observations of the declared violation pattern; that the over-limit position is refused without escalation; that the same position is permitted under escalation with the escalation recorded; that the backtest refuses on the realised exceedance rate; that OCC's audit reconstructs the lineage from the cooperative substrate's audit interface.
+The implementation's tests (`tests/test_*.py`) exercise each module independently; the demonstrations exercise the modules in composition. The London Whale demonstration's tests (`tests/test_london_whale_trace.py`) verify the substantive claims of this trace, and pin the places where the trace records what the prototype does rather than what the architecture specifies: that the two VaR models produce distinct compiled forms; that drift fires after four observations of the declared violation pattern; that the over-limit position is refused without escalation; that the same position is permitted under escalation with the escalation recorded; that the backtest refuses on the realised exceedance rate; that OCC's audit reconstructs the lineage from the cooperative substrate's audit interface.
 
 The reference implementation is a reference, not a conforming implementation. Production conforming implementations will exercise the same protocol but with engineering choices appropriate to production operation: durable storage, key-management infrastructure, cross-operator content exchange protocols, performance optimisation, operational tooling. The protocol's commitments are independent of these engineering choices; the reference implementation demonstrates the protocol is implementable, not that it is the only way to implement the protocol.
 
