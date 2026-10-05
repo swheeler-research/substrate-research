@@ -100,20 +100,7 @@ with no extra packages: `python3 check_model.py`.
 
 ## Building the note PDF
 
-The note is built from `note/formal_note.md` with pandoc and xelatex, matching the
-parent paper's typography (DejaVu Serif, A4, 11pt, ragged-right body discipline).
-
-```
-pandoc formal_note.md \
-  --from markdown+raw_tex \
-  --to pdf \
-  --pdf-engine=xelatex \
-  --template=template.tex \
-  --toc --toc-depth=2 \
-  --output=formal_note.pdf
-```
-
-The template requires the `calc` package and the standard pandoc table helper
-macros (`\tightlist`, `\real`) for the traceability table to render. The markdown
-title block is stripped before the pandoc run, since the template provides its own
-title page.
+The paper's PDF is built from the markdown at the repository root with pandoc
+and xelatex. The pipeline and the template live with the papers rather than with
+these artefacts, and an earlier version of this section described a per-note
+layout and a template file that this repository does not contain.

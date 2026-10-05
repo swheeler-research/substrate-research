@@ -11,8 +11,9 @@ its landing page is [..](../).
   cross-checks.
 - `transcripts/` the proof-checker and model-checker output, retained as evidence
   so the results can be read without re-running the tools.
-- `BUILD.md` reproduction instructions for the TLA+ Proof System, TLC, and the
-  paper PDF.
+- `BUILD.md` reproduction instructions for the TLA+ Proof System and TLC. The
+  paper's PDF is built from the markdown at the repository root, with the
+  pipeline that builds the other papers in the series.
 
 ## The headline artifacts
 
@@ -37,7 +38,8 @@ TLC model `tla/MC.tla` with `MC.cfg` and `MCnaive.cfg` (transcripts
 `tlc_invariants_output.txt` and `tlc_naive_refutation_output.txt`, the latter run
 under `MCnaive.cfg` and printing the counterexample to the naive state invariant),
 a second enumeration `tla/check_model.py`, written against the same model and so
-independent of TLC but not of the model, the seam check `tla/check_seam.py`, and
+independent of TLC but not of the model, the seam check `tla/check_seam.py`, the SMT cross-check `tla/tlaps_z3_proof.py`,
+which requires a solver the build notes do not install and ships no transcript, and
 the certified safety proof `tla/InvSurface_safety_tlaps.tla` (transcript
 `tlaps_safety_output.txt`, 65 obligations: 50 by `tlapm`'s own reasoning, 14 by the
 SMT backend, and one by LS4). The invocation property holds of the model by
