@@ -6,15 +6,18 @@
 \lhead{\small\itshape The Sovereign Substrate}
 \rhead{\small\thepage}
 \renewcommand{\headrulewidth}{0pt}
-\raggedright
 \usepackage{titlesec}
 \titlespacing*{\section}{0pt}{18pt}{8pt}
 \titlespacing*{\subsection}{0pt}{13pt}{6pt}
 \titlespacing*{\subsubsection}{0pt}{9pt}{5pt}
 \setlength{\parskip}{0.5em}
+\makeatletter
+\renewcommand{\@pnumwidth}{2.2em}
+\renewcommand{\@tocrmarg}{2.75em}
+\makeatother
 \AtBeginDocument{\urlstyle{tt}}
 \let\oldtableofcontents\tableofcontents
-\renewcommand{\tableofcontents}{\thispagestyle{empty}\oldtableofcontents}
+\renewcommand{\tableofcontents}{\thispagestyle{empty}\oldtableofcontents\aftergroup\raggedright}
 \renewcommand{\maketitle}{%
   \thispagestyle{empty}
   \null\vskip 2.25em
