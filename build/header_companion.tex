@@ -1,0 +1,40 @@
+\usepackage{fancyhdr}
+\usepackage{float}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\itshape The Sovereign Substrate: Reference Architecture and Implementation}
+\rhead{\small\VERSION}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{12pt}{7pt}
+\titlespacing*{\subsection}{0pt}{11pt}{5.8pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{4.8pt}
+\AtBeginDocument{\urlstyle{tt}}
+\let\oldtableofcontents\tableofcontents
+\renewcommand{\tableofcontents}{\thispagestyle{empty}\oldtableofcontents\clearpage\setcounter{page}{1}}
+\renewcommand{\maketitle}{%
+  \thispagestyle{empty}
+  \null\vskip 11.45em
+  \begin{center}
+    {\Huge\bfseries The Sovereign Substrate\par}
+    \vskip 1.25em
+    {\Large Reference Architecture and Implementation\par}
+    \vskip 10.6em
+    {\large S. Wheeler\par}
+    \vskip 1.2em
+    {\large \VERSION\par}
+    \vfill
+    {\small Companion to \emph{The Sovereign Substrate: A constitutional architecture for governed computation} (S. Wheeler, \VERSION, 2026; \url{https://doi.org/10.5281/zenodo.19960841}).\par}
+    \vskip 0.85em
+    {\small Correspondence: swheeler-research@proton.me\par}
+    \vskip 0.15em
+    {\small Paper repository: \url{https://github.com/swheeler-research/substrate-research}\par}
+    \vskip 0.15em
+    {\small Reference implementation: \url{https://github.com/swheeler-research/substrate-reference}\par}
+    \vskip 0.75em
+    {\small Licence: CC BY 4.0\par}
+  \end{center}
+  \clearpage
+  \setcounter{page}{1}
+}

@@ -2,7 +2,7 @@
 title: "The Sovereign Substrate"
 subtitle: "Reference Architecture and Implementation"
 author: "S. Wheeler"
-version: "v1.0"
+version: "v2.0"
 ---
 
 # The Sovereign Substrate
@@ -11,9 +11,9 @@ version: "v1.0"
 
 **S. Wheeler**
 
-v1.0
+v2.0
 
-Companion to *The Sovereign Substrate: A constitutional architecture for governed computation* (S. Wheeler, v1.0, 2026; https://doi.org/10.5281/zenodo.19960841).
+Companion to *The Sovereign Substrate: A constitutional architecture for governed computation* (S. Wheeler, v2.0, 2026; https://doi.org/10.5281/zenodo.19960841).
 
 Correspondence: swheeler-research@proton.me. Paper repository: https://github.com/swheeler-research/substrate-research. Reference implementation: https://github.com/swheeler-research/substrate-reference. Licence: CC BY 4.0.
 
@@ -21,7 +21,7 @@ Correspondence: swheeler-research@proton.me. Paper repository: https://github.co
 
 ## Abstract
 
-Modern computational systems lack an independent governance substrate between institutional policy and executable behaviour. Authority chains are reconstructed retrospectively from logs the operating institution controls; policy is enforced by the institution whose behaviour it is meant to constrain; auditability depends on institutional cooperation. *The Sovereign Substrate: A constitutional architecture for governed computation* (S. Wheeler, v1.0, 2026; https://doi.org/10.5281/zenodo.19960841) develops this structural fault, situates it against twelve consequential cases, and argues for an architectural response.
+Modern computational systems lack an independent governance substrate between institutional policy and executable behaviour. Authority chains are reconstructed retrospectively from logs the operating institution controls; policy is enforced by the institution whose behaviour it is meant to constrain; auditability depends on institutional cooperation. *The Sovereign Substrate: A constitutional architecture for governed computation* (S. Wheeler, v2.0, 2026; https://doi.org/10.5281/zenodo.19960841) develops this structural fault, situates it against twelve consequential cases, and argues for an architectural response.
 
 This document specifies the architecture at reference depth and documents the reference implementation that conforms to it. Three primitive types (functional, state, and credential units) compose under eight protocol mechanisms (compile-at-commit, roll-up under strictest-binding-wins, wilful inclusion, refusal under non-reconcilable composition, runtime evaluation against the compiled form, the uniform invalidation surface, administrative acts on the ledger, and federation of archives under multi-custodian quorum). The mechanisms compose uniformly across scales: the same vocabulary describes governance at a single functional unit, at an institutional substrate, and at a cooperative substrate of sovereigns.
 
@@ -33,7 +33,7 @@ The architecture does not solve politics, does not prevent corruption, does not 
 
 ## 1. Background and scope
 
-*The Sovereign Substrate: A constitutional architecture for governed computation* (S. Wheeler, v1.0, 2026; https://doi.org/10.5281/zenodo.19960841) develops the architecture at full depth: the structural problem the architecture addresses, the canonical case set, and the architecture's commitments at the depth the constitutional argument requires. This document is its companion at reference depth, written for the systems engineer, the security researcher, the standards-body technical staff member, or the conforming-implementer who needs the architecture without the surrounding constitutional argument. The constitutional rationale lives in the principal paper; this document does not re-make it.
+*The Sovereign Substrate: A constitutional architecture for governed computation* (S. Wheeler, v2.0, 2026; https://doi.org/10.5281/zenodo.19960841) develops the architecture at full depth: the structural problem the architecture addresses, the canonical case set, and the architecture's commitments at the depth the constitutional argument requires. This document is its companion at reference depth, written for the systems engineer, the security researcher, the standards-body technical staff member, or the conforming-implementer who needs the architecture without the surrounding constitutional argument. The constitutional rationale lives in the principal paper; this document does not re-make it.
 
 What this document specifies: the three primitive types and their internal typings, the eight protocol mechanisms at the depth required to write a conforming implementation, the reference implementation's correspondence to the specification, and the bounds of the architecture's claims, named where each claim is specified rather than relegated to a separate section. What this document does not specify: a wire protocol. The substrate is at the architectural layer; wire-protocol specification is downstream work, conceivable as future IETF or W3C standards-track activity building on RFC 9162 for witnessing, RFC 5280 for credential structure, the W3C Verifiable Credentials data model for credential expression, and Sigstore specifications for transparency logs. The architecture is what this document specifies; the protocol is what conforming implementations satisfy at the level of mechanical commitments; the substrate is what an operator runs. These distinctions are preserved throughout.
 
@@ -567,4 +567,4 @@ This paper is not legal, financial, engineering, or professional advice and shou
 
 The author asserts the defences available under sections 2 (truth), 3 (honest opinion), and 4 (publication on matter of public interest) of the Defamation Act 2013 in respect of any statements that may be construed as defamatory, and the common law defences of fair comment and reportage. The author has taken reasonable care to verify factual claims through the publicly available sources cited in the principal paper and to clearly distinguish between statements of fact and statements of opinion.
 
-Copyright in this paper is retained by the author. The paper is licensed under the [Creative Commons Attribution 4.0 International licence](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits any party to copy, redistribute, adapt, and build upon the work in any medium or format, including for commercial purposes, on the single condition that the author and the work are attributed. The suggested attribution is: S. Wheeler, *The Sovereign Substrate: Reference Architecture and Implementation*, v1.0 (2026), available at [https://github.com/swheeler-research/substrate-research](https://github.com/swheeler-research/substrate-research).
+Copyright in this paper is retained by the author. The paper is licensed under the [Creative Commons Attribution 4.0 International licence](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits any party to copy, redistribute, adapt, and build upon the work in any medium or format, including for commercial purposes, on the single condition that the author and the work are attributed. The suggested attribution is: S. Wheeler, *The Sovereign Substrate: Reference Architecture and Implementation*, v2.0 (2026), available at [https://github.com/swheeler-research/substrate-research](https://github.com/swheeler-research/substrate-research).

@@ -2,7 +2,7 @@
 
 ## A Machine-Checked Model of Constitutional Currency
 
-*Formal companion to The Sovereign Substrate: A constitutional architecture for governed computation (S. Wheeler, v1.0, 2026). TLA+ models, TLAPS proofs, and TLC checks accompany it. Correspondence: swheeler-research@proton.me. Licence: CC BY 4.0.*
+*Formal companion to The Sovereign Substrate: A constitutional architecture for governed computation (S. Wheeler, v2.0, 2026). TLA+ models, TLAPS proofs, and TLC checks accompany it. Correspondence: swheeler-research@proton.me. Licence: CC BY 4.0.*
 
 ---
 

@@ -1,0 +1,31 @@
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{graphicx}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\itshape The Sovereign Substrate}
+\rhead{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\raggedright
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{18pt}{8pt}
+\titlespacing*{\subsection}{0pt}{13pt}{6pt}
+\titlespacing*{\subsubsection}{0pt}{9pt}{5pt}
+\setlength{\parskip}{0.5em}
+\AtBeginDocument{\urlstyle{tt}}
+\let\oldtableofcontents\tableofcontents
+\renewcommand{\tableofcontents}{\thispagestyle{empty}\oldtableofcontents}
+\renewcommand{\maketitle}{%
+  \thispagestyle{empty}
+  \null\vskip 2.25em
+  \begin{center}
+    {\LARGE The Sovereign Substrate\par}
+    \vskip -0.25em
+    {\large A constitutional architecture for governed computation\par}
+    \vskip 0.13em
+    {\VERSION\par}
+    \vskip 1.7em
+    {\large S. Wheeler\par}
+  \end{center}
+  \clearpage
+}

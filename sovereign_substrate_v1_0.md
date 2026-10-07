@@ -2,7 +2,7 @@
 
 *A constitutional architecture for governed computation*
 
-Version 1.0
+Version 2.0
 
 S. Wheeler
 
@@ -3013,4 +3013,4 @@ This paper is not legal, financial, engineering, or professional advice and shou
 
 The author asserts the defences available under sections 2 (truth), 3 (honest opinion), and 4 (publication on matter of public interest) of the Defamation Act 2013 in respect of any statements that may be construed as defamatory, and the common law defences of fair comment and reportage. The author has taken reasonable care to verify factual claims through publicly available sources and to clearly distinguish between statements of fact and statements of opinion.
 
-Copyright in this paper is retained by the author. The paper is licensed under the [Creative Commons Attribution 4.0 International licence](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits any party to copy, redistribute, adapt, and build upon the work in any medium or format, including for commercial purposes, on the single condition that the author and the work are attributed. The suggested attribution is: S. Wheeler, *The Sovereign Substrate: A constitutional architecture for governed computation*, v1.0 (2026), available at [https://github.com/swheeler-research/substrate-research](https://github.com/swheeler-research/substrate-research).
+Copyright in this paper is retained by the author. The paper is licensed under the [Creative Commons Attribution 4.0 International licence](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits any party to copy, redistribute, adapt, and build upon the work in any medium or format, including for commercial purposes, on the single condition that the author and the work are attributed. The suggested attribution is: S. Wheeler, *The Sovereign Substrate: A constitutional architecture for governed computation*, v2.0 (2026), available at [https://github.com/swheeler-research/substrate-research](https://github.com/swheeler-research/substrate-research).

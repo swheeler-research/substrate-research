@@ -1,0 +1,36 @@
+\usepackage{fancyhdr}
+\usepackage{float}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small The Sovereign Substrate: A Machine-Checked Model of Constitutional Currency \VERSION}
+\rhead{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\AtBeginDocument{\urlstyle{tt}}
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+\titleformat*{\subsection}{\normalsize\bfseries}
+\renewcommand{\maketitle}{%
+  \thispagestyle{empty}
+  \null\vskip 12.7em
+  \begin{center}
+    {\LARGE\bfseries The Sovereign Substrate\par}
+    \vskip 0.45em
+    {\large A Machine-Checked Model of Constitutional Currency\par}
+    \vskip 11.5em
+    {S. Wheeler\par}
+    \vskip 0.4em
+    {\VERSION\par}
+    \vfill
+    {\small Formal companion to \emph{The Sovereign Substrate: A constitutional architecture for governed computation} (S. Wheeler, \VERSION, 2026; \url{https://doi.org/10.5281/zenodo.19960841}).\par}
+    \vskip 0.65em
+    {\small Correspondence: swheeler-research@proton.me\par}
+    \vskip -0.35em
+    {\small Paper repository: \url{https://github.com/swheeler-research/substrate-research}\par}
+    \vskip -0.35em
+    {\small Reference implementation: \url{https://github.com/swheeler-research/substrate-reference}\par}
+    \vskip 0.8em
+    {\small Licence: CC BY 4.0\par}
+    \vskip 2.55em
+  \end{center}
+  \clearpage
+}
