@@ -41,10 +41,10 @@ preferred-citation:
       value: "10.5281/zenodo.19960841"
       description: "Concept DOI (all versions)"
     - type: doi
-      value: "10.5281/zenodo.19960842"
-      description: "Version DOI (v1.0; replace with the v2.0 version DOI at deposit)"
+      value: "10.5281/zenodo.23245365"
+      description: "Version DOI (v2.0)"
     - type: url
-      value: "https://zenodo.org/records/19960842"
+      value: "https://zenodo.org/records/23245365"
       description: "Zenodo record"
   license: CC-BY-4.0
   abstract: "This paper proposes an architecture for preserving authority through computational composition. Three primitive types (functional, state, and credential units) compose under eight protocol mechanisms that admit governance, refuse non-reconcilable composition, and witness every act on an append-only ledger. Twelve cases from public record are used to show how the architecture's machinery would have surfaced or constrained the failure in each. The technical primitives are not novel, and the paper attributes each to its source. What the architecture claims as its own is narrower: that a withdrawn authority and a declared behavioural property ceasing to hold are one kind of event on one invalidation surface, acting on a compiled governance artefact of several authorities, with the refusal recorded as the same kind of act as the revocation; a machine-checked model of that currency; and the outline of a conformance specification against which an implementation can be judged."
@@ -67,10 +67,10 @@ references:
         value: "10.5281/zenodo.20237900"
         description: "Concept DOI (all versions)"
       - type: doi
-        value: "10.5281/zenodo.20237901"
-        description: "Version DOI (v1.0; replace with the v2.0 version DOI at deposit)"
+        value: "10.5281/zenodo.23245442"
+        description: "Version DOI (v2.0)"
       - type: url
-        value: "https://zenodo.org/records/20237901"
+        value: "https://zenodo.org/records/23245442"
         description: "Zenodo record"
     license: CC-BY-4.0
     abstract: "Technical companion to the principal paper. Specifies the architecture at conformance depth and documents the reference implementation that conforms to it. Three primitive types compose under eight protocol mechanisms specified at conformance depth; three of the principal paper's twelve cases are exhibited at mechanism-coverage depth; six unsubstantiated commitments and three categories of architectural limit are named where the mechanism is specified rather than relegated to a separate section."
@@ -92,7 +92,7 @@ references:
         description: "Concept DOI (all versions)"
       - type: doi
         value: "10.5281/zenodo.20238428"
-        description: "Version DOI (v1.0; replace with the v2.0 version DOI at deposit)"
+        description: "Version DOI (v1.0; the software record becomes v2.0 at the GitHub release)"
       - type: url
         value: "https://zenodo.org/records/20238428"
         description: "Zenodo record"
@@ -116,10 +116,10 @@ references:
         value: "10.5281/zenodo.20478803"
         description: "Concept DOI (all versions)"
       - type: doi
-        value: "10.5281/zenodo.20478804"
-        description: "Version DOI (v1.0; replace with the v2.0 version DOI at deposit)"
+        value: "10.5281/zenodo.23245423"
+        description: "Version DOI (v2.0)"
       - type: url
-        value: "https://zenodo.org/records/20478804"
+        value: "https://zenodo.org/records/23245423"
         description: "Zenodo record"
     license: CC-BY-4.0
     abstract: "Formal companion to the principal paper. Answers two of the architecture's open formal questions about constitutional currency: the faithful formalisation of no act executes under stale governance as an invocation-event property, with the natural state-invariant encoding machine-refuted; and a certified bound under which affected compiled forms cease to authorise execution within bounded latency, uniform across all six invalidation triggers and proved through the genuine transitive closure of the credential-derivation graph. Checked with the TLA+ Proof System and TLC."
