@@ -32,7 +32,7 @@ preferred-citation:
       affiliation: "Independent researcher"
   year: 2026
   month: 5
-  version: "v1.0"
+  version: "v2.0"
   publisher:
     name: Zenodo
   doi: "10.5281/zenodo.19960841"
@@ -42,12 +42,12 @@ preferred-citation:
       description: "Concept DOI (all versions)"
     - type: doi
       value: "10.5281/zenodo.19960842"
-      description: "Version DOI (v1.0)"
+      description: "Version DOI (v1.0; replace with the v2.0 version DOI at deposit)"
     - type: url
       value: "https://zenodo.org/records/19960842"
       description: "Zenodo record"
   license: CC-BY-4.0
-  abstract: "This paper proposes an architecture for preserving authority through computational composition. Three primitive types (functional, state, and credential units) compose under eight protocol mechanisms that admit governance, refuse non-reconcilable composition, and witness every act on an append-only ledger. Twelve cases from public record are used to show how the architecture's machinery would have surfaced or constrained the failure in each. The technical primitives are not novel; the integration under the protocol's structural commitments is."
+  abstract: "This paper proposes an architecture for preserving authority through computational composition. Three primitive types (functional, state, and credential units) compose under eight protocol mechanisms that admit governance, refuse non-reconcilable composition, and witness every act on an append-only ledger. Twelve cases from public record are used to show how the architecture's machinery would have surfaced or constrained the failure in each. The technical primitives are not novel, and the paper attributes each to its source. What the architecture claims as its own is narrower: that a withdrawn authority and a declared behavioural property ceasing to hold are one kind of event on one invalidation surface, acting on a compiled governance artefact of several authorities, with the refusal recorded as the same kind of act as the revocation; a machine-checked model of that currency; and a conformance specification against which an implementation can be judged."
 references:
   - type: generic
     title: "The Sovereign Substrate: Reference Architecture and Implementation"
@@ -58,7 +58,7 @@ references:
         affiliation: "Independent researcher"
     year: 2026
     month: 5
-    version: "v1.0"
+    version: "v2.0"
     publisher:
       name: Zenodo
     doi: "10.5281/zenodo.20237900"
@@ -68,7 +68,7 @@ references:
         description: "Concept DOI (all versions)"
       - type: doi
         value: "10.5281/zenodo.20237901"
-        description: "Version DOI (v1.0)"
+        description: "Version DOI (v1.0; replace with the v2.0 version DOI at deposit)"
       - type: url
         value: "https://zenodo.org/records/20237901"
         description: "Zenodo record"
@@ -83,7 +83,7 @@ references:
         affiliation: "Independent researcher"
     year: 2026
     month: 5
-    version: "v1.0"
+    version: "v2.0"
     repository-code: "https://github.com/swheeler-research/substrate-reference"
     doi: "10.5281/zenodo.20238427"
     identifiers:
@@ -92,7 +92,7 @@ references:
         description: "Concept DOI (all versions)"
       - type: doi
         value: "10.5281/zenodo.20238428"
-        description: "Version DOI (v1.0)"
+        description: "Version DOI (v1.0; replace with the v2.0 version DOI at deposit)"
       - type: url
         value: "https://zenodo.org/records/20238428"
         description: "Zenodo record"
@@ -107,7 +107,7 @@ references:
         affiliation: "Independent researcher"
     year: 2026
     month: 5
-    version: "v1.0"
+    version: "v2.0"
     publisher:
       name: Zenodo
     doi: "10.5281/zenodo.20478803"
@@ -117,7 +117,7 @@ references:
         description: "Concept DOI (all versions)"
       - type: doi
         value: "10.5281/zenodo.20478804"
-        description: "Version DOI (v1.0)"
+        description: "Version DOI (v1.0; replace with the v2.0 version DOI at deposit)"
       - type: url
         value: "https://zenodo.org/records/20478804"
         description: "Zenodo record"

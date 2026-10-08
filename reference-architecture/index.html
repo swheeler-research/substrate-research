@@ -11,7 +11,7 @@
 <meta name="citation_publication_date" content="2026/05/16">
 <meta name="citation_online_date" content="2026/05/16">
 <meta name="citation_pdf_url" content="https://swheeler-research.github.io/substrate-research/sovereign_substrate_reference_architecture.pdf">
-<meta name="citation_doi" content="10.5281/zenodo.20237901">
+<meta name="citation_doi" content="10.5281/zenodo.20237900">
 <meta name="citation_abstract_html_url" content="https://swheeler-research.github.io/substrate-research/reference-architecture/">
 <meta name="citation_publisher" content="Zenodo">
 <meta name="citation_language" content="en">
@@ -85,6 +85,42 @@
   }
   footer a { color: var(--accent); text-decoration: none; }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "The Sovereign Substrate: Reference Architecture and Implementation",
+  "name": "The Sovereign Substrate: Reference Architecture and Implementation",
+  "author": {
+    "@type": "Person",
+    "name": "Sam Wheeler",
+    "alternateName": "S. Wheeler",
+    "sameAs": [
+      "https://orcid.org/0009-0009-8693-0148",
+      "https://github.com/swheeler-research",
+      "https://deepsystemsthinking.substack.com"
+    ]
+  },
+  "version": "2.0",
+  "datePublished": "2026",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "identifier": "https://doi.org/10.5281/zenodo.20237900",
+  "sameAs": "https://doi.org/10.5281/zenodo.20237900",
+  "encoding": {
+    "@type": "MediaObject",
+    "encodingFormat": "application/pdf",
+    "contentUrl": "https://swheeler-research.github.io/substrate-research/sovereign_substrate_reference_architecture.pdf"
+  },
+  "isPartOf": {
+    "@type": "CreativeWorkSeries",
+    "name": "The Sovereign Substrate"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Zenodo"
+  }
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -94,14 +130,14 @@
   <h1>The Sovereign Substrate</h1>
   <p class="subtitle">Reference Architecture and Implementation</p>
   <p class="byline">
-    S. Wheeler, independent researcher &nbsp;·&nbsp; v1.0 (2026) &nbsp;·&nbsp;
-    DOI <a href="https://doi.org/10.5281/zenodo.20237901">10.5281/zenodo.20237901</a> &nbsp;·&nbsp;
+    S. Wheeler, independent researcher &nbsp;·&nbsp; v2.0 (2026) &nbsp;·&nbsp;
+    DOI <a href="https://doi.org/10.5281/zenodo.20237900">10.5281/zenodo.20237900</a> &nbsp;·&nbsp;
     <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
   </p>
 
   <h2>Abstract</h2>
   <div class="abstract">
-    <p>This document specifies the Sovereign Substrate architecture at conformance depth and documents the reference implementation that conforms to it. It is the technical companion to the principal paper <em>The Sovereign Substrate: A constitutional architecture for governed computation</em> (S. Wheeler, v1.0, 2026), which develops the structural problem and the constitutional argument.</p>
+    <p>This document specifies the Sovereign Substrate architecture at conformance depth and documents the reference implementation that conforms to it. It is the technical companion to the principal paper <em>The Sovereign Substrate: A constitutional architecture for governed computation</em> (S. Wheeler, v2.0, 2026), which develops the structural problem and the constitutional argument.</p>
     <p>The architecture admits three primitive types (functional, state, and credential units) composing under eight protocol mechanisms specified at the depth required to write a conforming implementation: compile-at-commit, roll-up under strictest-binding-wins, wilful inclusion, refusal under non-reconcilable composition, runtime evaluation against the compiled form, the uniform invalidation surface, administrative acts on the ledger, and federation of archives under multi-custodian quorum. The compositional vocabulary is uniform across scales: the same primitives describe governance at a single functional unit, an institutional substrate, and a cooperative substrate of sovereigns.</p>
     <p>The reference implementation is a working artefact, not a thought experiment, and includes twelve end-to-end demonstrations against substantively different problems. The paper exhibits three at sufficient depth to show the mechanisms composing: Robodebt (runtime policy refusal), the Boeing 737 MAX MCAS failure (certification as a substrate pattern), and the 2012 JPMorgan Chase London Whale loss (the densest single composition of mechanisms).</p>
     <p>Six architectural commitments are named as not yet substantiated by the prototype. Each mechanism's bounded claims are specified alongside the mechanism, with the architecture's limits (adversarial gaming, refusal cost, centralising effects under adoption) named where the mechanism is specified rather than relegated to a separate section. The architecture is what this document specifies; the protocol is what conforming implementations satisfy; the substrate is what an operator runs. The technical primitives are not novel; the architectural commitments at conformance depth, exercised against working code, are.</p>
@@ -109,16 +145,16 @@
 
   <div class="actions">
     <a class="primary" href="../sovereign_substrate_reference_architecture.pdf">Read the PDF</a>
-    <a href="https://doi.org/10.5281/zenodo.20237901">Zenodo record</a>
+    <a href="https://doi.org/10.5281/zenodo.20237900">Zenodo record</a>
     <a href="../substrate/">Principal paper</a>
     <a href="https://github.com/swheeler-research/substrate-reference">Reference implementation</a>
   </div>
 
   <h2>Cite as</h2>
-  <p class="cite">Wheeler, S. <em>The Sovereign Substrate: Reference Architecture and Implementation</em>, v1.0 (2026). Zenodo. https://doi.org/10.5281/zenodo.20237901</p>
+  <p class="cite">Wheeler, S. <em>The Sovereign Substrate: Reference Architecture and Implementation</em>, v2.0 (2026). Zenodo. https://doi.org/10.5281/zenodo.20237900</p>
 
   <footer>
-    Principal paper: <a href="../substrate/">A constitutional architecture for governed computation</a> &nbsp;·&nbsp; DOI <a href="https://doi.org/10.5281/zenodo.19960842">10.5281/zenodo.19960842</a><br>
+    Principal paper: <a href="../substrate/">A constitutional architecture for governed computation</a> &nbsp;·&nbsp; DOI <a href="https://doi.org/10.5281/zenodo.19960841">10.5281/zenodo.19960841</a><br>
     ORCID: <a href="https://orcid.org/0009-0009-8693-0148">0009-0009-8693-0148</a> &nbsp;·&nbsp; <a href="mailto:swheeler-research@proton.me">swheeler-research@proton.me</a>
   </footer>
 </div>
