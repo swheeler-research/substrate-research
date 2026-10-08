@@ -16,8 +16,8 @@ Research papers on the Sovereign Substrate: an architecture for preserving autho
 The architectural treatise. Develops the structural problem, specifies three primitive types composing under eight protocol mechanisms, anchors authority chains at constitutional source credentials, and uses canonical cases from public record to exhibit how the architecture's machinery would have surfaced or constrained the failure in each.
 
 - Zenodo: <https://doi.org/10.5281/zenodo.19960841>
-- Latest PDF in this repository: [sovereign_substrate_v1_0.pdf](sovereign_substrate_v1_0.pdf)
-- Markdown source: [sovereign_substrate_v1_0.md](sovereign_substrate_v1_0.md)
+- Latest PDF in this repository: [sovereign_substrate.pdf](sovereign_substrate.pdf)
+- Markdown source: [sovereign_substrate.md](sovereign_substrate.md)
 
 ### Companion paper
 

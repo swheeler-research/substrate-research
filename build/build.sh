@@ -12,13 +12,13 @@ common=(--from markdown+raw_tex --to pdf --pdf-engine=xelatex --toc --toc-depth=
         -V papersize=a4 -V fontsize=11pt -V "geometry:left=2.5cm,right=2.5cm" -M title="The Sovereign Substrate" -M author="S. Wheeler"
         -V "header-includes=\\newcommand{\\VERSION}{$VERSION}")
 if [ "${1:-all}" = all ] || [ "$1" = principal ]; then
-  python3 preprocess.py "$SRC/sovereign_substrate_v1_0.md" principal.md figures
+  python3 preprocess.py "$SRC/sovereign_substrate.md" principal.md figures
   for f in figures/diagram_*.mmd; do
     [ -s "${f%.mmd}.pdf" ] && [ "${f%.mmd}.pdf" -nt "$f" ] && continue
     $HOME/opt/mmdc11/node_modules/.bin/mmdc -p puppeteer.json -i "$f" -o "${f%.mmd}.pdf" --pdfFit -w 2000 -H 1400 >/dev/null
   done
   pandoc principal.md "${common[@]}" -H header_principal.tex -V mainfont="DejaVu Serif" -V monofont="DejaVu Sans Mono" \
-    -V microtypeoptions=protrusion=false -V "geometry:top=2.5cm,bottom=2.5cm" -V linestretch=1.15 -V colorlinks=true -V linkcolor=black -V urlcolor="[RGB]{0,0,102}" --output out/sovereign_substrate_v1_0.pdf && echo built principal
+    -V microtypeoptions=protrusion=false -V "geometry:top=2.5cm,bottom=2.5cm" -V linestretch=1.15 -V colorlinks=true -V linkcolor=black -V urlcolor="[RGB]{0,0,102}" --output out/sovereign_substrate.pdf && echo built principal
 fi
 if [ "${1:-all}" = all ] || [ "$1" = companion ]; then
   python3 preprocess.py "$SRC/sovereign_substrate_reference_architecture.md" companion.md figures
