@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hidden configuration in a coding agent — S. Wheeler</title>
+
+<!-- Google Scholar / Highwire citation metadata -->
+<meta name="citation_title" content="Hidden configuration in a coding agent: a starting-context switch under a fixed model and client version, recovered from per-run telemetry">
+<meta name="citation_author" content="Wheeler, S.">
+<meta name="citation_publication_date" content="2026/10/08">
+<meta name="citation_online_date" content="2026/10/08">
+<meta name="citation_pdf_url" content="https://swheeler-research.github.io/substrate-research/hidden-configuration-coding-agent.pdf">
+<meta name="citation_doi" content="10.5281/zenodo.23250071">
+<meta name="citation_abstract_html_url" content="https://swheeler-research.github.io/substrate-research/hidden-configuration/">
+<meta name="citation_publisher" content="Zenodo">
+<meta name="citation_language" content="en">
+<meta name="citation_keywords" content="LLM evaluation; coding agents; reproducibility; experimental methodology; hidden configuration; telemetry; context window; Claude Code; instruction following; measurement validity">
+
+<meta name="description" content="A measurement paper: for one widely used coding agent, the model name and client version did not identify the experimental condition. The starting context switched three times under a fixed model and client, and per-run telemetry recorded every switch.">
+<meta name="author" content="S. Wheeler">
+<link rel="canonical" href="https://swheeler-research.github.io/substrate-research/hidden-configuration/">
+
+<style>
+  :root {
+    --ink: #1a1a17;
+    --ink-soft: #4a4843;
+    --paper: #f4f1ea;
+    --rule: #cfc8b8;
+    --accent: #6b4f2a;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    line-height: 1.65; font-size: 18px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 7vh 28px 14vh; }
+  .back {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 2.4rem;
+  }
+  .back:hover { text-decoration: underline; }
+  .kicker {
+    text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.72rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--accent); margin: 0 0 0.9rem;
+  }
+  h1 { font-size: 2rem; font-weight: 400; line-height: 1.22; margin: 0 0 0.5rem; letter-spacing: 0.005em; }
+  .subtitle { font-style: italic; color: var(--ink-soft); font-size: 1.15rem; margin: 0 0 1.4rem; }
+  .byline {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.92rem; color: var(--ink-soft); margin: 0 0 2.2rem;
+    padding-bottom: 2.2rem; border-bottom: 1px solid var(--rule);
+  }
+  .byline a { color: var(--accent); text-decoration: none; }
+  h2 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--accent); margin: 2.8rem 0 1rem;
+  }
+  .abstract p { margin: 0 0 1.1rem; }
+  .actions { margin: 2.6rem 0 0; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .actions a {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.9rem; text-decoration: none; padding: 0.7rem 1.3rem;
+    border: 1px solid var(--rule); border-radius: 2px; color: var(--ink);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .actions a:hover { border-color: var(--accent); color: var(--accent); }
+  .actions a.primary { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+  .actions a.primary:hover { background: #573f20; color: var(--paper); }
+  .cite {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.82rem; line-height: 1.7; background: rgba(0,0,0,0.035);
+    border-left: 2px solid var(--accent); padding: 1rem 1.2rem; margin: 1rem 0 0;
+    color: var(--ink-soft); overflow-wrap: break-word;
+  }
+  footer {
+    margin-top: 4rem; padding-top: 1.6rem; border-top: 1px solid var(--rule);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.82rem; color: var(--ink-soft); line-height: 1.8;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Hidden configuration in a coding agent: a starting-context switch under a fixed model and client version, recovered from per-run telemetry",
+  "name": "Hidden configuration in a coding agent: a starting-context switch under a fixed model and client version, recovered from per-run telemetry",
+  "datePublished": "2026-10-08",
+  "version": "1.1",
+  "identifier": "https://doi.org/10.5281/zenodo.23250071",
+  "sameAs": "https://doi.org/10.5281/zenodo.23250071",
+  "url": "https://swheeler-research.github.io/substrate-research/hidden-configuration/",
+  "encoding": {"@type": "MediaObject", "contentUrl": "https://swheeler-research.github.io/substrate-research/hidden-configuration-coding-agent.pdf", "encodingFormat": "application/pdf"},
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "publisher": {"@type": "Organization", "name": "Zenodo"},
+  "keywords": "LLM evaluation, coding agents, reproducibility, experimental methodology, hidden configuration, telemetry, context window, Claude Code, instruction following, measurement validity",
+  "author": {
+    "@type": "Person",
+    "name": "Sam Wheeler",
+    "alternateName": "S. Wheeler",
+    "sameAs": [
+      "https://orcid.org/0009-0009-8693-0148",
+      "https://github.com/swheeler-research",
+      "https://deepsystemsthinking.substack.com"
+    ]
+  }
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">&larr; S. Wheeler — Research</a>
+
+  <p class="kicker">Preprint</p>
+  <h1>Hidden configuration in a coding agent</h1>
+  <p class="subtitle">A starting-context switch under a fixed model and client version, recovered from per-run telemetry</p>
+  <p class="byline">
+    S. Wheeler, independent researcher &nbsp;·&nbsp; v1.1 (8 October 2026) &nbsp;·&nbsp;
+    DOI <a href="https://doi.org/10.5281/zenodo.23250071">10.5281/zenodo.23250071</a> &nbsp;·&nbsp;
+    <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+  </p>
+
+  <h2>Abstract</h2>
+  <div class="abstract">
+    <p>Evaluations of coding agents treat the model name and the client version as the experimental condition. This paper shows that, for one widely used coding agent, they did not identify it. Over sixteen days in which the resolved model (claude-sonnet-5) and the client (Claude Code 2.1.278) were unchanged, the agent's starting context switched three times between about 19,700 and about 32,000 tokens, alongside changes in its output ceiling. The model name, the version string and the provider's documentation recorded none of this. The telemetry each run already emits recorded every switch; a daily canary run for the purpose recorded one.</p>
+    <p>In a daily experiment registered in advance, the agent's compliance with a project rule moved with the state: the required record was written in 18/18 small-context runs and 11/48 large-context runs. The association is observational. The two states also differed in output ceiling and possibly in serving configuration or model build, the state was never manipulated, and the independent units are eleven days, not 66 runs; within the one week in which the state switched in both directions, the chance of the observed ordering under no association is 1 in 10. A replication registered in advance on the same model reproduced the large-context behaviour but could not test the state, and a test that can is registered and pending.</p>
+    <p>The primary contribution is therefore not that hidden context changes agent behaviour. It is that model and client version labels can fail to identify the experimental condition under which a coding agent runs, and that the failure is detectable from per-run telemetry.</p>
+  </div>
+
+  <div class="actions">
+    <a class="primary" href="../hidden-configuration-coding-agent.pdf">Read the PDF</a>
+    <a href="https://doi.org/10.5281/zenodo.23250071">Zenodo record</a>
+  </div>
+
+  <h2>Cite as</h2>
+  <p class="cite">Wheeler, S. <em>Hidden configuration in a coding agent: a starting-context switch under a fixed model and client version, recovered from per-run telemetry</em>, v1.1 (2026). Zenodo. https://doi.org/10.5281/zenodo.23250071</p>
+
+  <footer>
+    All versions: DOI <a href="https://doi.org/10.5281/zenodo.23243034">10.5281/zenodo.23243034</a><br>
+    ORCID: <a href="https://orcid.org/0009-0009-8693-0148">0009-0009-8693-0148</a> &nbsp;·&nbsp; <a href="mailto:swheeler-research@proton.me">swheeler-research@proton.me</a>
+  </footer>
+</div>
+</body>
+</html>

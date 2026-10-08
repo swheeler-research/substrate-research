@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>S. Wheeler — Research</title>
-<meta name="description" content="Research papers by S. Wheeler, independent researcher. The Sovereign Substrate: an architecture for preserving authority through computational composition.">
+<meta name="description" content="Research papers by S. Wheeler, independent researcher. The Sovereign Substrate: an architecture for preserving authority through computational composition. Hidden configuration in a coding agent: a measurement study of what model and client version labels fail to identify.">
 <meta name="author" content="S. Wheeler">
 <meta name="google-site-verification" content="3CkjKT8lyvvM2u4WiedERZqLK9flU3hOkoULEmI4z6M" />
 <link rel="canonical" href="https://swheeler-research.github.io/substrate-research/">
@@ -82,10 +82,22 @@
   <header>
     <h1>S. Wheeler</h1>
     <p class="role">Independent researcher</p>
-    <p class="lede">Research papers on the Sovereign Substrate: an architecture for preserving authority through computational composition.</p>
+    <p class="lede">Research papers on governed computation: the Sovereign Substrate, an architecture for preserving authority through computational composition, and measurement of how AI coding agents behave under the conditions they actually run in.</p>
   </header>
 
   <main>
+    <section class="paper">
+      <p class="kicker">Preprint · Measurement</p>
+      <h2><a href="hidden-configuration/">Hidden configuration in a coding agent</a></h2>
+      <p class="sub">A starting-context switch under a fixed model and client version, recovered from per-run telemetry</p>
+      <p class="desc">Evaluations of coding agents treat the model name and the client version as the experimental condition. For one widely used coding agent, they did not identify it: over sixteen days with the model and client unchanged, the starting context switched three times between about 19,700 and about 32,000 tokens. The provider's labels and documentation recorded none of it; the telemetry each run already emits recorded every switch.</p>
+      <p class="links">
+        <a href="hidden-configuration/">Landing page</a>
+        <a href="hidden-configuration-coding-agent.pdf">PDF</a>
+        <a href="https://doi.org/10.5281/zenodo.23250071">DOI</a>
+      </p>
+    </section>
+
     <section class="paper">
       <p class="kicker">Principal paper</p>
       <h2><a href="substrate/">The Sovereign Substrate</a></h2>
@@ -126,7 +138,7 @@
   <footer>
     Reference implementation: <a href="https://github.com/swheeler-research/substrate-reference">github.com/swheeler-research/substrate-reference</a><br>
     ORCID: <a href="https://orcid.org/0009-0009-8693-0148">0009-0009-8693-0148</a> &nbsp;·&nbsp; <a href="mailto:swheeler-research@proton.me">swheeler-research@proton.me</a><br>
-    Both papers licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+    All papers licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
   </footer>
 </div>
 </body>
