@@ -17,7 +17,7 @@
 \makeatother
 \AtBeginDocument{\urlstyle{tt}}
 \let\oldtableofcontents\tableofcontents
-\renewcommand{\tableofcontents}{\thispagestyle{empty}\oldtableofcontents\aftergroup\raggedright}
+\renewcommand{\tableofcontents}{\thispagestyle{empty}\oldtableofcontents\clearpage\aftergroup\raggedright}
 \renewcommand{\maketitle}{%
   \thispagestyle{empty}
   \null\vskip 2.25em

@@ -6,6 +6,8 @@
 \rhead{\small\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \AtBeginDocument{\urlstyle{tt}}
+\let\oldtableofcontents\tableofcontents
+\renewcommand{\tableofcontents}{\oldtableofcontents\clearpage}
 \usepackage{titlesec}
 \titleformat*{\section}{\large\bfseries}
 \titleformat*{\subsection}{\normalsize\bfseries}

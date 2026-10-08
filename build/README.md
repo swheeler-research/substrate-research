@@ -19,8 +19,8 @@ The three papers are built from the markdown at the repository root with pandoc 
 | Line stretch | 1.15 | 1.15 | none |
 | Paragraph skip | 0.5 em | pandoc default | pandoc default |
 | Running head | italic title left, page right, no rule | italic title left, version right, rule, page centred in foot | title and version left, page right, rule |
-| Headings | H1 section, H2 subsection; tightened spacing | H2 shifted to section; TOC depth 3 | sections at normalsize bold, TOC heading at large |
-| Pagination | continuous from the title page | title, TOC and body each restart at 1 | continuous from the title page |
+| Headings | H1 section, H2 subsection; tightened spacing; TOC depth 3 | H2 shifted to section; TOC depth 3 | sections at normalsize bold, TOC heading at large; TOC depth 2 |
+| Pagination | continuous from the title page; body starts on a fresh page after the contents | title, TOC and body each restart at 1; body on a fresh page | continuous from the title page; body on a fresh page |
 | Body alignment | ragged right | justified | justified |
 | URLs | monospace, RGB 0 0 102 | monospace, RGB 0 0 128 | monospace, RGB 0 0 128 |
 

@@ -17,7 +17,7 @@ if [ "${1:-all}" = all ] || [ "$1" = principal ]; then
     [ -s "${f%.mmd}.pdf" ] && [ "${f%.mmd}.pdf" -nt "$f" ] && continue
     $HOME/opt/mmdc11/node_modules/.bin/mmdc -p puppeteer.json -i "$f" -o "${f%.mmd}.pdf" --pdfFit -w 2000 -H 1400 >/dev/null
   done
-  pandoc principal.md "${common[@]}" -H header_principal.tex -V mainfont="DejaVu Serif" -V monofont="DejaVu Sans Mono" \
+  pandoc principal.md "${common[@]}" --toc-depth=3 -H header_principal.tex -V mainfont="DejaVu Serif" -V monofont="DejaVu Sans Mono" \
     -V microtypeoptions=protrusion=false -V "geometry:top=2.5cm,bottom=2.5cm" -V linestretch=1.15 -V colorlinks=true -V linkcolor=black -V urlcolor="[RGB]{0,0,102}" --output out/sovereign_substrate.pdf && echo built principal
 fi
 if [ "${1:-all}" = all ] || [ "$1" = companion ]; then
